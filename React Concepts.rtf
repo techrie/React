@@ -1,0 +1,4857 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sl276\slmult1\f0\fs22\lang9 # React Fundamentals\par
+\par
+#### React Course\par
+\par
+[My React Course](https://www.udemy.com/course/react-tutorial-and-projects-course/?referralCode=FEE6A921AF07E2563CEF)\par
+\par
+#### Support\par
+\par
+Find the Content Useful? [You can always buy me a coffee](https://www.buymeacoffee.com/johnsmilga)\par
+\par
+#### Folder Structure\par
+\par
+- node_modules\par
+  Contains all dependencies required by the app. Main dependencies also listed in package.json\par
+\par
+- public\par
+  Contains static assets including index.html (page template)\par
+  - index.html\par
+    - title\par
+    - fonts\par
+    - css\par
+    - favicon\par
+    - id="root" - our entire app\par
+- src\par
+  In simplest form it's the brain of our app. This is where we will do all of our work. src/index.js is the JavaScript entry point.\par
+- .gitignore\par
+  Specifies which files source control (Git) should ignore\par
+\par
+- package.json\par
+  Every Node.js project has a package.json and it contains info about our project, for example list of dependencies and scripts\par
+\par
+- package-lock.json\par
+  A snapshot of the entire dependency tree\par
+\par
+- README\par
+  The markdown file where you can share more info about the project for example build instructions and summary\par
+\par
+- zoom 175%\par
+\par
+#### Remove Boilerplate\par
+\par
+- remove src folder\par
+- create src folder\par
+\par
+  - create index.js inside src\par
+\par
+- toggle sidebar CMD + B\par
+- shortcuts settings/keyboard shortcuts\par
+\par
+#### First Component\par
+\par
+```js\par
+function Greeting() \{\par
+  return <h2>My First Component</h2>;\par
+\}\par
+\par
+// arrow function also works\par
+\par
+const Greeting = () => \{\par
+  return <h2>My First Component</h2>;\par
+\};\par
+```\par
+\par
+- starts with capital letter\par
+- must return JSX (html)\par
+- always close tag <Greeting/>\par
+\par
+##### Typical Component\par
+\par
+```js\par
+// imports or logic\par
+\par
+const Greeting = () => \{\par
+  return <h2>My First Component</h2>;\par
+\};\par
+export default Greeting;\par
+```\par
+\par
+##### Root Component (only one)\par
+\par
+index.js\par
+\par
+```js\par
+import React from 'react';\par
+import ReactDOM from 'react-dom/client';\par
+\par
+function Greeting() \{\par
+  return <h2>My First Component</h2>;\par
+\}\par
+\par
+const root = ReactDOM.createRoot(document.getElementById('root'));\par
+\par
+root.render(<Greeting />);\par
+```\par
+\par
+#### Possible Bug\par
+\par
+If for some reason you still have this error in the terminal\par
+\par
+```\par
+Module not found: Error: Can't resolve 'path/index.js'\par
+```\par
+\par
+Just restart the server\par
+\par
+- CTRL + C (stop the server)\par
+- "npm start" (start the dev server)\par
+\par
+#### Extensions and settings.json\par
+\par
+- Auto Rename Tag\par
+- Highlight Matching Tag\par
+  - customize in settings.json\par
+- Prettier\par
+  - format on save\par
+  - format on paste\par
+  - Default Formatter (Prettier - Code formatter)\par
+\par
+settings.json\par
+\par
+```json\par
+  "editor.formatOnPaste": true,\par
+  "editor.formatOnSave": true,\par
+  "editor.defaultFormatter": "esbenp.prettier-vscode",\par
+    "prettier.singleQuote": true,\par
+    "prettier.semi": false,\par
+```\par
+\par
+- Emmet\par
+\par
+settings.json\par
+\par
+```json\par
+"emmet.includeLanguages": \{\par
+    "javascript": "javascriptreact"\par
+  \},\par
+```\par
+\par
+- ES7 Snippets\par
+  - rafce (arrow func with export)\par
+  - rfce (regular func with export )\par
+  - same as the file name\par
+  - react auto import\par
+    - uncheck\par
+    - React Snippets \f1\'9b Settings: Import React On Top\par
+\par
+#### First Component in Detail\par
+\par
+- capital letter\par
+- must return something\par
+- JSX syntax (return html)\par
+  - to make our lives easier\par
+  - calling function under the hood\par
+\par
+index.js\par
+\par
+```js\par
+const Greeting = () => \{\par
+  return React.createElement('h2', \{\}, 'hello world');\par
+\};\par
+```\par
+\par
+```js\par
+function Greeting() \{\par
+  return (\par
+    <div>\par
+      <h2>hello world</h2>\par
+    </div>\par
+  );\par
+\}\par
+\par
+const Greeting = () => \{\par
+  return React.createElement(\par
+    'div',\par
+    \{\},\par
+    React.createElement('h2', \{\}, 'hello world')\par
+  );\par
+\};\par
+```\par
+\par
+#### JSX Rules\par
+\par
+- return single element (one parent element)\par
+\par
+  - semantics section/article\par
+  - Fragment - let's us group elements without adding extra nodes\par
+\par
+```js\par
+return <React.Fragment>...rest of the return</React.Fragment>;\par
+\par
+// shorthand\par
+\par
+return <>...rest of the return</>;\par
+```\par
+\par
+- camelCase property naming convention\par
+\par
+```js\par
+return (\par
+  <div tabIndex=\{1\}>\par
+    <button onClick=\{myFunction\}>click me</button>\par
+    <label htmlFor='name'>Name</label>\par
+    <input readOnly=\{true\} id='name' />\par
+  </div>\par
+)\par
+// in html\par
+<div tabindex="1">\par
+    <button onclick="myFunction()">click me</button>\par
+    <label for='name'>Name</label>\par
+    <input readonly id='name' />\par
+</div>\par
+```\par
+\par
+- className instead of class\par
+\par
+```js\par
+return <div className='someValue'>hello</div>;\par
+```\par
+\par
+- close every element\par
+\par
+```js\par
+return <img />;\par
+// or\par
+return <input />;\par
+```\par
+\par
+- formatting\par
+  - opening tag in the same line as return or ()\par
+\par
+```js\par
+function Greeting() \{\par
+  return (\par
+    <>\par
+      <div className='someValue'>\par
+        <h3>hello people</h3>\par
+        <ul>\par
+          <li>\par
+            <a href='#'>hello world</a>\par
+          </li>\par
+        </ul>\par
+      </div>\par
+      <h2>hello world</h2>\par
+      <input type='text' name='' id='' />\par
+    </>\par
+  );\par
+\}\par
+```\par
+\par
+#### Nest Components\par
+\par
+```js\par
+function Greeting() \{\par
+  return (\par
+    <div>\par
+      <Person />\par
+      <Message />\par
+    </div>\par
+  );\par
+\}\par
+\par
+const Person = () => <h2>john doe</h2>;\par
+const Message = () => \{\par
+  return <p>this is my message</p>;\par
+\};\par
+```\par
+\par
+#### React Developer Tools\par
+\par
+- top right corner\par
+- more tools/extensions\par
+- open chrome web store\par
+\par
+#### Book List\par
+\par
+- setup structure\par
+\par
+```js\par
+import React from 'react';\par
+import ReactDOM from 'react-dom/client';\par
+\par
+function BookList() \{\par
+  return (\par
+    <section>\par
+      <Book />\par
+      <Book />\par
+      <Book />\par
+      <Book />\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = () => \{\par
+  return (\par
+    <article>\par
+      <Image />\par
+      <Title />\par
+      <Author />\par
+    </article>\par
+  );\par
+\};\par
+\par
+const Image = () => <h2>image placeholder</h2>;\par
+const Title = () => \{\par
+  return <h2>Book Title</h2>;\par
+\};\par
+const Author = () => <h4>Author</h4>;\par
+\par
+const root = ReactDOM.createRoot(document.getElementById('root'));\par
+\par
+root.render(<BookList />);\par
+```\par
+\par
+- in search engine type - 'amazon best selling books'\par
+  [Amazon Best Sellers](https://www.amazon.com/Best-Sellers-Books/zgbs/books/)\par
+- DON'T NEED TO BUY ANYTHING !!!\par
+- NOT AN AFFILIATE LINK !!!!\par
+- choose a book\par
+- copy image, title and author\par
+\par
+```js\par
+import React from 'react';\par
+import ReactDOM from 'react-dom/client';\par
+\par
+function BookList() \{\par
+  return (\par
+    <section>\par
+      <Book />\par
+      <Book />\par
+      <Book />\par
+      <Book />\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = () => \{\par
+  return (\par
+    <article className='book'>\par
+      <Image />\par
+      <Title />\par
+      <Author />\par
+    </article>\par
+  );\par
+\};\par
+\par
+const Image = () => (\par
+  <img\par
+    src='https://images-na.ssl-images-amazon.com/images/I/71m+Qtq+HrL._AC_UL900_SR900,600_.jpg'\par
+    alt='Interesting Facts For Curious Minds'\par
+  />\par
+);\par
+const Title = () => \{\par
+  return <h2>Interesting Facts For Curious Minds</h2>;\par
+\};\par
+const Author = () => <h4>Jordan Moore </h4>;\par
+\par
+const root = ReactDOM.createRoot(document.getElementById('root'));\par
+\par
+root.render(<BookList />);\par
+```\par
+\par
+#### CSS\par
+\par
+- create index.css in src\par
+\par
+```css\par
+* \{\par
+  margin: 0;\par
+  padding: 0;\par
+  box-sizing: border-box;\par
+\}\par
+\par
+body \{\par
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,\par
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\par
+  background: #f1f5f8;\par
+  color: #222;\par
+\}\par
+```\par
+\par
+- import file and add classes\par
+\par
+```js\par
+import './index.css';\par
+\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      <Book />\par
+      <Book />\par
+      <Book />\par
+      <Book />\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = () => \{\par
+  return (\par
+    <article className='book'>\par
+      <Image />\par
+      <Title />\par
+      <Author />\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- complete css\par
+\par
+```css\par
+.booklist \{\par
+  width: 90vw;\par
+  max-width: 1170px;\par
+  margin: 5rem auto;\par
+  display: grid;\par
+  gap: 2rem;\par
+\}\par
+\par
+@media screen and (min-width: 768px) \{\par
+  .booklist \{\par
+    grid-template-columns: repeat(3, 1fr);\par
+  \}\par
+\}\par
+.book \{\par
+  background: #fff;\par
+  border-radius: 1rem;\par
+  padding: 2rem;\par
+  text-align: center;\par
+\}\par
+.book img \{\par
+  width: 100%;\par
+  object-fit: cover;\par
+\}\par
+.book h2 \{\par
+  margin-top: 1rem;\par
+  font-size: 1rem;\par
+\}\par
+```\par
+\par
+#### Local Images (Public Folder)\par
+\par
+- Optional Video !!!\par
+\par
+- external images (hosted on different server) - just need an url\par
+- local images (public folder) - less performant\par
+- local images (src folder) - better solution for assets,\par
+  since under the hood they get optimized.\par
+\par
+- save image (Save Image As....)\par
+- create images folder in public\par
+- copy/paste image\par
+- rename (optional)\par
+- replace url in the src - './images/imageName.extension'\par
+- './' because assets are on the same server\par
+\par
+```js\par
+const Image = () => (\par
+  <img src='./images/book-1.jpg' alt='Interesting Facts For Curious Minds' />\par
+);\par
+```\par
+\par
+- whatever assets we place in public - instantly available\par
+- domain(localhost)/asset\par
+\par
+#### JSX - CSS (inline styles)\par
+\par
+- style prop\par
+- \{\} in JSX means going back to JS Land\par
+- value is an object with key/value pairs - capitalized and with ''\par
+\par
+```js\par
+const Author = () => (\par
+  <h4 style=\{\{ color: '#617d98', fontSize: '0.75rem', marginTop: '0.5rem' \}\}>\par
+    Jordan Moore\par
+  </h4>\par
+);\par
+```\par
+\par
+- css rules still apply (inline vs external css)\par
+\par
+```css\par
+.book h4 \{\par
+  /* won't work */\par
+  color: red;\par
+  /* will work */\par
+  letter-spacing: 2px;\par
+\}\par
+```\par
+\par
+- external libraries use inline css,\par
+  so if you want to make some changes,\par
+  reference the library docs and elements tab\par
+\par
+- alternative option\par
+\par
+```js\par
+const Author = () => \{\par
+  const inlineHeadingStyles = \{\par
+    color: '#617d98',\par
+    fontSize: '0.75rem',\par
+    marginTop: '0.5rem',\par
+  \};\par
+  return <h4 style=\{inlineHeadingStyles\}>Jordan Moore </h4>;\par
+\};\par
+```\par
+\par
+- FOR THE MOST PART, MULTIPLE APPROACHES AVAILABLE !!!\par
+- AS LONG AS THE RESULT IS THE SAME, REALLY COMES DOWN TO PREFERENCE !!!!\par
+\par
+#### JSX - Javascript\par
+\par
+- refactor to single book component (personal preference)\par
+- remove inline css\par
+\par
+```js\par
+const Book = () => \{\par
+  return (\par
+    <article className='book'>\par
+      <img\par
+        src='./images/book-1.jpg'\par
+        alt='Interesting Facts For Curious Minds'\par
+      />\par
+      <h2>Interesting Facts For Curious Minds</h2>\par
+      <h4>Jordan Moore </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+```css\par
+.book h4 \{\par
+  color: #617d98;\par
+  font-size: 0.75rem;\par
+  margin-top: 0.5rem;\par
+  letter-spacing: 2px;\par
+\}\par
+```\par
+\par
+- \{\} in JSX means going back to JS Land\par
+- value inside must be an expression (return value),\par
+  can't be a statement\par
+\par
+```js\par
+const author = 'Jordan Moore';\par
+const Book = () => \{\par
+  const title = 'Interesting Facts For Curious Mindssssss';\par
+  return (\par
+    <article className='book'>\par
+      <img\par
+        src='./images/book-1.jpg'\par
+        alt='Interesting Facts For Curious Minds'\par
+      />\par
+      <h2>\{title\}</h2>\par
+\par
+      <h4>\{author.toUpperCase()\} </h4>\par
+      \{/* <p>\{let x = 6\}</p> */\}\par
+      <p>\{6 + 6\}</p>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- toggle line comment Edit/Toggle Line Comment\par
+\par
+#### Props - Initial Setup\par
+\par
+- refactor/clean up\par
+\par
+```js\par
+const author = 'Jordan Moore';\par
+const title = 'Interesting Facts For Curious Minds';\par
+const img = './images/book-1.jpg';\par
+\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      <Book />\par
+      <Book />\par
+    </section>\par
+  );\par
+\}\par
+const Book = () => \{\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+```js\par
+// parameters\par
+const someFunc = (param1, param2) => \{\par
+  console.log(param1, param2);\par
+\};\par
+// arguments\par
+someFunc('job', 'developer');\par
+```\par
+\par
+```js\par
+const Book = (props) => \{\par
+  console.log(props);\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+      \{console.log(props)\}\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- props object, convention to call props, 'shakeAndBake' is an excellent alternative\par
+\par
+- pass as key/value pairs\par
+- if the prop exists it will return value, otherwise no value\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      <Book job='developer' />\par
+      <Book title='random title' number=\{22\} />\par
+    </section>\par
+  );\par
+\}\par
+const Book = (props) => \{\par
+  console.log(props);\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+      <p>\{props.job\}</p>\par
+      <p>\{props.title\}</p>\par
+      <p>\{props.number\}</p>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      <Book author=\{author\} title=\{title\} img=\{img\} />\par
+      <Book title=\{title\} img=\{img\} />\par
+    </section>\par
+  );\par
+\}\par
+const Book = (props) => \{\par
+  console.log(props);\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{props.img\} alt=\{props.title\} />\par
+      <h2>\{props.title\}</h2>\par
+      <h4>\{props.author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+#### Props - Somewhat Dynamic Setup\par
+\par
+- setup an object\par
+- refactor vars to properties\par
+- copy/paste and rename\par
+- get values for second book\par
+- setup props\par
+\par
+```js\par
+const firstBook = \{\par
+  author: 'Jordan Moore',\par
+  title: 'Interesting Facts For Curious Minds',\par
+  img: './images/book-1.jpg',\par
+\};\par
+const secondBook = \{\par
+  author: 'James Clear',\par
+  title: 'Atomic Habits',\par
+  img: '{{\field{\*\fldinst{HYPERLINK https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg }}{\fldrslt{https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg\ul0\cf0}}}}\f1\fs22 ',\par
+\};\par
+\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      <Book\par
+        author=\{firstBook.author\}\par
+        title=\{firstBook.title\}\par
+        img=\{firstBook.img\}\par
+      />\par
+      <Book\par
+        author=\{secondBook.author\}\par
+        title=\{secondBook.title\}\par
+        img=\{secondBook.img\}\par
+      />\par
+    </section>\par
+  );\par
+\}\par
+const Book = (props) => \{\par
+  console.log(props);\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{props.img\} alt=\{props.title\} />\par
+      <h2>\{props.title\}</h2>\par
+      <h4>\{props.author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+#### Access Props - Multiple Approaches\par
+\par
+- there is no right or wrong - again preference !!!\par
+\par
+- Destructuring (object)\par
+  [JS Nuggets - Destructuring (object)](https://www.youtube.com/watch?v=i4vhNKihfto&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=8&t=1s)\par
+\par
+- destructuring in Vanilla JS\par
+- saves time/typing\par
+- pull out the properties\par
+- don't need to reference object anymore\par
+\par
+```js\par
+const someObject = \{\par
+  name: 'john',\par
+  job: 'developer',\par
+  location: 'florida',\par
+\};\par
+\par
+console.log(someObject.name);\par
+const \{ name, job \} = someObject;\par
+console.log(job);\par
+```\par
+\par
+- no need for all the props.propName\par
+- destructure inside component\par
+\par
+```js\par
+const Book = (props) => \{\par
+  const \{ img, title, author \} = props;\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- destructure in function parameters (in our case props)\par
+- if you have console.log(props) - it won't be defined\par
+\par
+```js\par
+const Book = (\{ img, title, author \}) => \{\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+#### Children Prop\par
+\par
+- everything we render between component tags\par
+- during the course we will mostly use it Context API\par
+- special prop, has to be "children"\par
+- can place anywhere in JSX\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      <Book\par
+        author=\{firstBook.author\}\par
+        title=\{firstBook.title\}\par
+        img=\{firstBook.img\}\par
+      >\par
+        <p>\par
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque\par
+          repudiandae inventore eos qui animi sed iusto alias eius ea sapiente.\par
+        </p>\par
+        <button>click me</button>\par
+      </Book>\par
+      <Book\par
+        author=\{secondBook.author\}\par
+        title=\{secondBook.title\}\par
+        img=\{secondBook.img\}\par
+      />\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = (\{ img, title, author, children \}) => \{\par
+  // rest of the logic\par
+\};\par
+const Book = (props) => \{\par
+  const \{ img, title, author, children \} = props;\par
+  console.log(props);\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+      \{children\}\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- optional\par
+\par
+```css\par
+@media screen and (min-width: 768px) \{\par
+  .booklist \{\par
+    grid-template-columns: repeat(3, 1fr);\par
+    align-items: start;\par
+  \}\par
+\}\par
+.book p \{\par
+  margin: 1rem 0 0.5rem;\par
+\}\par
+```\par
+\par
+#### Simple List\par
+\par
+- [Javascript Nuggets - Map ]({{\field{\*\fldinst{HYPERLINK https://www.youtube.com/watch?v=80KX6aD9R7M&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=1 }}{\fldrslt{https://www.youtube.com/watch?v=80KX6aD9R7M&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=1\ul0\cf0}}}}\f1\fs22 )\par
+\par
+- refactor\par
+\par
+```js\par
+const books = [\par
+  \{\par
+    author: 'Jordan Moore',\par
+    title: 'Interesting Facts For Curious Minds',\par
+    img: './images/book-1.jpg',\par
+  \},\par
+  \{\par
+    author: 'James Clear',\par
+    title: 'Atomic Habits',\par
+    img: '{{\field{\*\fldinst{HYPERLINK https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg }}{\fldrslt{https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg\ul0\cf0}}}}\f1\fs22 ',\par
+  \},\par
+];\par
+\par
+function BookList() \{\par
+  return <section className='booklist'></section>;\par
+\}\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author \} = props;\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- can't render objects in React\par
+\par
+```js\par
+function BookList() \{\par
+  return <section className='booklist'>\{books\}</section>;\par
+\}\par
+```\par
+\par
+- map - creates a new array from calling a function for every array element.\par
+\par
+```js\par
+const names = ['john', 'peter', 'susan'];\par
+const newNames = names.map((name) => \{\par
+  console.log(name);\par
+  return <h1>\{name\}</h1>;\par
+\});\par
+\par
+function BookList() \{\par
+  return <section className='booklist'>\{newNames\}</section>;\par
+\}\par
+```\par
+\par
+#### Proper List\par
+\par
+- remove names and newNames\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        console.log(book);\par
+\par
+        // return 'hello';\par
+        return (\par
+          <div>\par
+            <h2>\{book.title\}</h2>\par
+          </div>\par
+        );\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+```\par
+\par
+- render component\par
+- pass properties one by one\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        console.log(book);\par
+        const \{ img, title, author \} = book;\par
+        return <Book img=\{img\} title=\{title\} author=\{author\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+```\par
+\par
+#### Key Prop\par
+\par
+- typically it's going to be id\par
+\par
+```js\par
+const books = [\par
+  \{\par
+    author: 'Jordan Moore',\par
+    title: 'Interesting Facts For Curious Minds',\par
+    img: './images/book-1.jpg',\par
+    id: 1,\par
+  \},\par
+  \{\par
+    author: 'James Clear',\par
+    title: 'Atomic Habits',\par
+    img: '{{\field{\*\fldinst{HYPERLINK https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg }}{\fldrslt{https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg\ul0\cf0}}}}\f1\fs22 ',\par
+    id: 2,\par
+  \},\par
+];\par
+\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        console.log(book);\par
+        const \{ img, title, author, id \} = book;\par
+        return <Book book=\{book\} key=\{id\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+```\par
+\par
+- you will see index,but it's not advised if the list is changing\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book, index) => \{\par
+        console.log(book);\par
+        const \{ img, title, author, id \} = book;\par
+        return <Book book=\{book\} key=\{index\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+```\par
+\par
+#### Pass The Entire Object\par
+\par
+- render component\par
+- pass entire object\par
+- Destructuring (object)\par
+  [JS Nuggets - Destructuring (object)](https://www.youtube.com/watch?v=i4vhNKihfto&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=8&t=1s)\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        console.log(book);\par
+        const \{ img, title, author \} = book;\par
+        return <Book book=\{book\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author \} = props.book;\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- alternative\par
+\par
+```js\par
+const Book = (\{ book: \{ img, title, author \} \}) => \{\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+#### My Personal Preference\par
+\par
+- utilize spread operator (...) - copy values\par
+- Spread Operator\par
+- [JS Nuggets - Spread Operator](https://www.youtube.com/watch?v=4Zyr5a3m0Fc&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=10)\par
+\par
+```js\par
+const friends = ['john', 'peter', 'anna'];\par
+const newFriends = [...friends, 'susan'];\par
+console.log(friends);\par
+console.log(newFriends);\par
+const someObject = \{\par
+  name: 'john',\par
+  job: 'developer',\par
+\};\par
+// COPY NOT A REFERENCE !!!!\par
+const newObject = \{ ...someObject, location: 'florida' \};\par
+console.log(someObject);\par
+console.log(newObject);\par
+```\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        return <Book \{...book\} key=\{book.id\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author \} = props;\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+const Book = (\{ img, title, author \}) => \{\par
+  // rest of the code\par
+\};\par
+```\par
+\par
+#### Events - Fundamentals\par
+\par
+- Vanilla JS\par
+\par
+```js\par
+const btn = document.getElementById('btn');\par
+\par
+btn.addEventListener('click', function (e) \{\par
+  // access event object\par
+  // do something when event fires\par
+\});\par
+```\par
+\par
+- similar approach\par
+- element, event, function\par
+- again camelCase\par
+\par
+```js\par
+const EventExamples = () => \{\par
+  const handleButtonClick = () => \{\par
+    alert('handle button click');\par
+  \};\par
+  return (\par
+    <section>\par
+      <button onClick=\{handleButtonClick\}>click me</button>\par
+    </section>\par
+  );\par
+\};\par
+```\par
+\par
+- [React Events](https://reactjs.org/docs/events.html)\par
+- no need to memorize them(idea is the same)\par
+- most common\par
+  - onClick (click events)\par
+  - onSubmit (submit form )\par
+  - onChange (input change )\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      <EventExamples />\par
+      \{books.map((book) => \{\par
+        return <Book \{...book\} key=\{book.id\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+\par
+const EventExamples = () => \{\par
+  const handleFormInput = () => \{\par
+    console.log('handle form input');\par
+  \};\par
+  const handleButtonClick = () => \{\par
+    alert('handle button click');\par
+  \};\par
+  return (\par
+    <section>\par
+      <form>\par
+        <h2>Typical Form</h2>\par
+        <input\par
+          type='text'\par
+          name='example'\par
+          onChange=\{handleFormInput\}\par
+          style=\{\{ margin: '1rem 0' \}\}\par
+        />\par
+      </form>\par
+      <button onClick=\{handleButtonClick\}>click me</button>\par
+    </section>\par
+  );\par
+\};\par
+```\par
+\par
+#### Event Object and Form Submission\par
+\par
+```js\par
+const EventExamples = () => \{\par
+  const handleFormInput = (e) => \{\par
+    console.log(e);\par
+    // e.target - element\par
+    console.log(`Input Name : $\{e.target.name\}`);\par
+    console.log(`Input Value : $\{e.target.value\}`);\par
+    // console.log('handle form input');\par
+  \};\par
+  const handleButtonClick = () => \{\par
+    alert('handle button click');\par
+  \};\par
+  const handleFormSubmission = (e) => \{\par
+    e.preventDefault();\par
+    console.log('form submitted');\par
+  \};\par
+  return (\par
+    <section>\par
+      \{/* add onSubmit Event Handler */\}\par
+      <form onSubmit=\{handleFormSubmission\}>\par
+        <h2>Typical Form</h2>\par
+        <input\par
+          type='text'\par
+          name='example'\par
+          onChange=\{handleFormInput\}\par
+          style=\{\{ margin: '1rem 0' \}\}\par
+        />\par
+        \{/* add button with type='submit' */\}\par
+        <button type='submit'>submit form</button>\par
+      </form>\par
+      <button onClick=\{handleButtonClick\}>click me</button>\par
+    </section>\par
+  );\par
+\};\par
+```\par
+\par
+- alternative approach\par
+\par
+```js\par
+<button type='submit' onClick=\{handleFormSubmission\}>\par
+  submit form\par
+</button>\par
+```\par
+\par
+#### Mind Grenade\par
+\par
+- alternative approach\par
+- pass anonymous function (in this case arrow function)\par
+- one liner - less code\par
+\par
+```js\par
+const EventExamples = () => \{\par
+  return (\par
+    <section>\par
+      <button onClick=\{() => console.log('hello there')\}>click me</button>\par
+    </section>\par
+  );\par
+\};\par
+```\par
+\par
+- also can access event object\par
+\par
+```js\par
+const EventExamples = () => \{\par
+  return (\par
+    <section>\par
+      <form>\par
+        <h2>Typical Form</h2>\par
+        <input\par
+          type='text'\par
+          name='example'\par
+          onChange=\{(e) => console.log(e.target.value)\}\par
+          style=\{\{ margin: '1rem 0' \}\}\par
+        />\par
+      </form>\par
+      <button onClick=\{() => console.log('you clicked me')\}>click me</button>\par
+    </section>\par
+  );\par
+\};\par
+```\par
+\par
+#### Mind Grenade #2\par
+\par
+- remove EventsExamples\par
+- components are independent by default\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        return <Book \{...book\} key=\{book.id\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author \} = props;\par
+  const displayTitle = () => \{\par
+    console.log(title);\par
+  \};\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <button onClick=\{displayTitle\}>display title</button>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- remove button\par
+\par
+#### Prop Drilling\par
+\par
+- react data flow - can only pass props down\par
+- alternatives Context API, redux, other state libraries\par
+\par
+```js\par
+function BookList() \{\par
+  const someValue = 'shakeAndBake';\par
+  const displayValue = () => \{\par
+    console.log(someValue);\par
+  \};\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        return <Book \{...book\} key=\{book.id\} displayValue=\{displayValue\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author, displayValue \} = props;\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <button onClick=\{displayValue\}>click me</button>\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+#### More Complex Example\par
+\par
+- initial setup\par
+- create getBook function in booklist\par
+- accepts id as an argument and finds the book\par
+- [Javascript Nuggets - Filter and Find](https://www.youtube.com/watch?v=KeYxsev737s&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=4)\par
+- pass the function down to Book Component and invoke on the button click\par
+- in the Book Component destructure id and function\par
+- invoke the function when user clicks the button, pass the id\par
+- the goal : you should see the same book in the console\par
+\par
+```js\par
+const BookList = () => \{\par
+  const getBook = (id) => \{\par
+    const book = books.find((book) => book.id === id);\par
+    console.log(book);\par
+  \};\par
+\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        return <Book \{...book\} key=\{book.id\} getBook=\{getBook\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\};\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author, getBook, id \} = props;\par
+  // console.log(props);\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      \{/* this is not going to work */\}\par
+      <button onClick=\{getBook(id)\}>display title</button>\par
+      <h4>\{author\}</h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- two fixes\par
+- first option - setup wrapper\par
+\par
+```js\par
+const Book = (props) => \{\par
+  const \{ img, title, author, getBook, id \} = props;\par
+  // console.log(props);\par
+  const getSingleBook = () => \{\par
+    getBook(id);\par
+  \};\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+      <button onClick=\{getSingleBook\}>display title</button>\par
+      <h4>\{author\}</h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- two fixes\par
+- second option - wrap in the anonymous arrow function\par
+\par
+```js\par
+const Book = (props) => \{\par
+  const \{ img, title, author, getBook, id \} = props;\par
+  // console.log(props);\par
+  const getSingleBook = () => \{\par
+    getBook(id);\par
+  \};\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+\par
+      <button onClick=\{() => getBook(id)\}>display title</button>\par
+      <h4>\{author\}</h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+#### Import and Export Statements\par
+\par
+- remove all getBook code\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book) => \{\par
+        return <Book \{...book\} key=\{book.id\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\}\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author \} = props;\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+- setup two files in src books.js and Book.js\par
+- cut books array from index.js\par
+- add to books.js\par
+\par
+books.js\par
+\par
+```js\par
+const books = [\par
+  \{\par
+    author: 'Jordan Moore',\par
+    title: 'Interesting Facts For Curious Minds',\par
+    img: './images/book-1.jpg',\par
+    id: 1,\par
+  \},\par
+  \{\par
+    author: 'James Clear',\par
+    title: 'Atomic Habits',\par
+    img: '{{\field{\*\fldinst{HYPERLINK https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg }}{\fldrslt{https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg\ul0\cf0}}}}\f1\fs22 ',\par
+    id: 2,\par
+  \},\par
+];\par
+```\par
+\par
+- two flavors named and default exports\par
+\par
+  - with named exports names MUST match\par
+  - with default exports,can rename but only one per file\par
+\par
+- named export\par
+\par
+```js\par
+export const books = [\par
+  \{\par
+    author: 'Jordan Moore',\par
+    title: 'Interesting Facts For Curious Minds',\par
+    img: './images/book-1.jpg',\par
+    id: 1,\par
+  \},\par
+  \{\par
+    author: 'James Clear',\par
+    title: 'Atomic Habits',\par
+    img: '{{\field{\*\fldinst{HYPERLINK https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg }}{\fldrslt{https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL._AC_UL900_SR900,600_.jpg\ul0\cf0}}}}\f1\fs22 ',\par
+    id: 2,\par
+  \},\par
+];\par
+```\par
+\par
+index.js\par
+\par
+```js\par
+import \{ books \} from './books';\par
+```\par
+\par
+- default export\par
+\par
+```js\par
+const Book = (props) => \{\par
+  const \{ img, title, author \} = props;\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+\par
+      <h4>\{author\} </h4>\par
+    </article>\par
+  );\par
+\};\par
+\par
+export default Book;\par
+```\par
+\par
+index.js\par
+\par
+```js\par
+import Book from './Book';\par
+```\par
+\par
+#### Local Images (src folder)\par
+\par
+- better performance because optimized\par
+- add one more book to array\par
+- download all three images (rename)\par
+- setup images folder in the src\par
+- import all three images in the books.js\par
+- set image property equal to import\par
+- and yes each image requires new import\par
+\par
+```js\par
+import img1 from './images/book-1.jpg';\par
+import img2 from './images/book-2.jpg';\par
+import img3 from './images/book-3.jpg';\par
+\par
+export const books = [\par
+  \{\par
+    author: 'Jordan Moore',\par
+    title: 'Interesting Facts For Curious Minds',\par
+    img: img1,\par
+    id: 1,\par
+  \},\par
+  \{\par
+    author: 'James Clear',\par
+    title: 'Atomic Habits',\par
+    img: img2,\par
+    id: 2,\par
+  \},\par
+  \{\par
+    author: 'Stephen King',\par
+    title: 'Fairy Tale',\par
+    img: img3,\par
+    id: 3,\par
+  \},\par
+];\par
+```\par
+\par
+#### Challenges\par
+\par
+- setup numbers\par
+- don't worry about css\par
+- hint - index (second parameter in map)\par
+\par
+index.js\par
+\par
+```js\par
+const BookList = () => \{\par
+  return (\par
+    <section className='booklist'>\par
+      \{books.map((book, index) => \{\par
+        return <Book \{...book\} key=\{book.id\} number=\{index\} />;\par
+      \})\}\par
+    </section>\par
+  );\par
+\};\par
+\par
+const Book = (props) => \{\par
+  const \{ img, title, author, number \} = props;\par
+\par
+  return (\par
+    <article className='book'>\par
+      <img src=\{img\} alt=\{title\} />\par
+      <h2>\{title\}</h2>\par
+\par
+      <h4>\{author\}</h4>\par
+      <span className='number'>\{`# $\{number + 1\}`\}</span>\par
+    </article>\par
+  );\par
+\};\par
+```\par
+\par
+index.css\par
+\par
+```css\par
+.book \{\par
+  background: #fff;\par
+  border-radius: 1rem;\par
+  padding: 2rem;\par
+  text-align: center;\par
+  /* set relative */\par
+  position: relative;\par
+\}\par
+\par
+.number \{\par
+  position: absolute;\par
+  top: 0;\par
+  left: 0;\par
+  font-size: 1rem;\par
+  padding: 0.75rem;\par
+  border-top-left-radius: 1rem;\par
+  border-bottom-right-radius: 1rem;\par
+  background: #c35600;\par
+  color: #fff;\par
+\}\par
+```\par
+\par
+#### Add Title\par
+\par
+- add a title to our app (css optional)\par
+- change page title\par
+\par
+index.js\par
+\par
+```js\par
+function BookList() \{\par
+  return (\par
+    <>\par
+      <h1>amazon best sellers</h1>\par
+      <section className='booklist'>\par
+        \{books.map((book) => \{\par
+          return <Book \{...book\} key=\{book.id\} />;\par
+        \})\}\par
+      </section>\par
+    </>\par
+  );\par
+\}\par
+```\par
+\par
+index.css\par
+\par
+```css\par
+h1 \{\par
+  text-align: center;\par
+  margin-top: 4rem;\par
+  text-transform: capitalize;\par
+\}\par
+```\par
+\par
+public/index.html\par
+\par
+```html\par
+<title>Best Sellers</title>\par
+```\par
+\par
+#### Build Production Application\par
+\par
+- stop the dev server "ctrl + c"\par
+- run "npm run build"\par
+- build folder gets created\par
+\par
+#### Netlify\par
+\par
+- sign up\par
+- add new site/deploy manually\par
+- choose build folder\par
+- rename site - site settings/change site name\par
+\par
+#### Create-React-App Boilerplate (src)\par
+\par
+- index.js\par
+\par
+```js\par
+import React from 'react';\par
+import ReactDOM from 'react-dom/client';\par
+\par
+// styles (typically global)\par
+import './index.css';\par
+\par
+// convention to name it App and setup in a separate file\par
+import App from './App';\par
+// import report web vitals\par
+import reportWebVitals from './reportWebVitals';\par
+\par
+// StrictMode\par
+\par
+// StrictMode is a tool for highlighting potential problems in an application.Activates additional checks and warnings for its descendants.Runs only in Development, does not impact the production build. RENDERS TWICE !!! Possible to remove.\par
+\par
+const root = ReactDOM.createRoot(document.getElementById('root'));\par
+root.render(\par
+  <React.StrictMode>\par
+    <App />\par
+  </React.StrictMode>\par
+);\par
+\par
+// If you want to start measuring performance in your app, pass a function\par
+// to log results (for example: reportWebVitals(console.log))\par
+// or send to an analytics endpoint. Learn more: {{\field{\*\fldinst{HYPERLINK https://bit.ly/CRA-vitals }}{\fldrslt{https://bit.ly/CRA-vitals\ul0\cf0}}}}\f1\fs22\par
+reportWebVitals();\par
+```\par
+\par
+- remove in src\par
+\par
+  - setupTests.js\par
+  - reportWebVitals.js\par
+  - App.test.js\par
+\par
+- be careful with multiple css files\par
+\par
+App.js\par
+\par
+```js\par
+function App() \{\par
+  return <h1>backroads app</h1>;\par
+\}\par
+\par
+export default App;\par
+```\par
+\par
+- remove\par
+  - remove logo.svg\par
+  - App.css\par
+\par
+#### Vite Docs\par
+\par
+(Vite)[https://vitejs.dev/]\par
+\par
+#### Vite Install\par
+\par
+```sh\par
+npm create vite@latest app-name -- --template react\par
+npm install\par
+npm run dev\par
+```\par
+\par
+- {{\field{\*\fldinst{HYPERLINK http://localhost:5173/ }}{\fldrslt{http://localhost:5173/\ul0\cf0}}}}\f1\fs22\par
+\par
+#### Vite Setup\par
+\par
+- need to use .jsx extension\par
+- index.html in the source instead of public\par
+- assets still in public\par
+- instead of index.js, need to use main.jsx\par
+- to spin up dev server - "npm run dev"\par
+\par
+- rest the same - imports/exports, deployment, assets, etc...\par
+\par
+\par
+\par
+\f0\lang1033 **************Tutorial.md**********\par
+\par
+\par
+## Setup\par
+\par
+- traditional Vite app\par
+  - removed boilerplate\par
+  - provided some assets (css, data)\par
+    - just so we can focus on important stuff\par
+  - removed <StrictMode>, so it's less logs\par
+\par
+## Advanced Topics\par
+\par
+- /tutorial directory\par
+- work in the starter folder\par
+- complete code in the final folder\par
+- in order to work on topic import component from 'starter'\par
+- in order to test final import component from 'final'\par
+- setup challenges\par
+- in the beginning examples with numbers and buttons :):):)\par
+\par
+```js\par
+import Starter from './tutorial/1-useState/starter/1-error-example';\par
+import Final from './tutorial/1-useState/final/1-error-example';\par
+function App() \{\par
+  return (\par
+    <div className='container'>\par
+      <Starter />\par
+      <Final />\par
+    </div>\par
+  );\par
+\}\par
+\par
+export default App;\par
+```\par
+\par
+#### The Need For State\par
+\par
+```js\par
+import Starter from './tutorial/01-useState/starter/01-error-example.jsx';\par
+```\par
+\par
+- in App.jsx setup import and container div\par
+\par
+  Setup Challenge :\par
+\par
+- create count variable\par
+- display value in the JSX\par
+- add button and increase the value\par
+- the reason for bug - we don't trigger re-render (reference next lecture)\par
+\par
+```js\par
+const ErrorExample = () => \{\par
+  let count = 0;\par
+\par
+  const handleClick = () => \{\par
+    count = count + 1;\par
+    console.log(count);\par
+    // preserve value between renders\par
+    // trigger re-render\par
+  \};\par
+  return (\par
+    <div>\par
+      <h2>\{count\}</h2>\par
+      <button type='button' className='btn' onClick=\{handleClick\}>\par
+        increment\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default ErrorExample;\par
+```\par
+\par
+#### useState Basics\par
+\par
+```js\par
+import Starter from './tutorial/01-useState/starter/02-useState-basics.jsx';\par
+```\par
+\par
+[Javascript Nuggets - Destructuring (Array)](https://www.youtube.com/watch?v=qhECs40xMec&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=7&t=9s)\par
+\par
+- useState hook\par
+- returns an array with two elements: the current state value, and a function that we can use to update the state\par
+- accepts default value as an argument\par
+- state update triggers re-render\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const UseStateBasics = () => \{\par
+  // console.log(useState());\par
+  // console.log(useState('jo koy'));\par
+  // const value = useState()[0];\par
+  // const handler = useState()[1];\par
+  // console.log(value, handler);\par
+\par
+  const [count, setCount] = useState(0);\par
+  const handleClick = () => \{\par
+    // console.log(count)\par
+    setCount(count + 1);\par
+    // be careful, we can set any value\par
+    // setCount('pants');\par
+  \};\par
+  return (\par
+    <div>\par
+      <h4>You clicked \{count\} times</h4>\par
+      <button className='btn' onClick=\{handleClick\}>\par
+        Click me\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default UseStateBasics;\par
+```\par
+\par
+#### Initial Render and Re-Renders\par
+\par
+In a React application, the initial render is the first time that the component tree is rendered to the DOM. It happens when the application first loads, or when the root component is first rendered. This is also known as "mounting" the components.\par
+\par
+Re-renders, on the other hand, happen when the component's state or props change, and the component needs to be updated in the DOM to reflect these changes. React uses a virtual DOM to optimize the process of updating the actual DOM, so that only the necessary changes are made.\par
+\par
+There are a few ways that you can trigger a re-render in a React component:\par
+\par
+- By changing the component's state or props. When the component's state or props change, React will re-render the component to reflect these changes.\par
+\par
+- When the parent element re-renders, even if the component's state or props have not changed.\par
+\par
+#### General Rules of Hooks\par
+\par
+- starts with "use" (both -react and custom hooks)\par
+- component must be uppercase\par
+- invoke inside function/component body\par
+- don't call hooks conditionally (cover later)\par
+- set functions don't update state immediately (cover later)\par
+\par
+#### useState with Array\par
+\par
+```js\par
+import Starter from './tutorial/01-useState/starter/03-useState-array.jsx';\par
+```\par
+\par
+Setup Challenge :\par
+\par
+- import data\par
+- setup a state value\par
+  - people - default value equal to data\par
+- display list(people) in the browser\par
+\par
+- create two functions\par
+\par
+  - one that removes single item from the list\par
+  - one that clears entire list\par
+\par
+1. render the list\par
+\par
+```js\par
+import React from 'react';\par
+import \{ data \} from '../../../data';\par
+const UseStateArray = () => \{\par
+  const [people, setPeople] = React.useState(data);\par
+\par
+  return (\par
+    <div>\par
+      \{people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+          </div>\par
+        );\par
+      \})\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default UseStateArray;\par
+```\par
+\par
+2. remove items\par
+\par
+[Javascript Nuggets - Filter and Find](https://www.youtube.com/watch?v=KeYxsev737s&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=4)\par
+\par
+```js\par
+import React from 'react';\par
+import \{ data \} from '../../../data';\par
+const UseStateArray = () => \{\par
+  const [people, setPeople] = React.useState(data);\par
+\par
+  const removeItem = (id) => \{\par
+    let newPeople = people.filter((person) => person.id !== id);\par
+    setPeople(newPeople);\par
+  \};\par
+  return (\par
+    <div>\par
+      \{people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+            <button onClick=\{() => removeItem(id)\}>remove</button>\par
+          </div>\par
+        );\par
+      \})\}\par
+      <button\par
+        className='btn'\par
+        style=\{\{ marginTop: '2rem' \}\}\par
+        onClick=\{() => setPeople([])\}\par
+      >\par
+        clear items\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default UseStateArray;\par
+```\par
+\par
+- should we update backroads app project?\par
+\par
+#### useState with Object\par
+\par
+```js\par
+import Starter from './tutorial/01-useState/starter/04-useState-object.jsx';\par
+```\par
+\par
+Setup Challenge :\par
+\par
+- setup three state values\par
+  - name(string)\par
+  - age(number)\par
+  - hobby(string)\par
+- render in the browser\par
+- create a button\par
+  - setup a function\par
+    - update all three state values\par
+- as a result once the user clicks the button,\par
+  new person is displayed in the browser\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const UseStateObject = () => \{\par
+  const [name, setName] = useState('peter');\par
+  const [age, setAge] = useState(24);\par
+  const [hobby, setHobby] = useState('read books');\par
+\par
+  const displayPerson = () => \{\par
+    setName('john');\par
+    setAge(28);\par
+    setHobby('scream at the computer');\par
+  \};\par
+  return (\par
+    <>\par
+      <h3>\{name\}</h3>\par
+      <h3>\{age\}</h3>\par
+      <h4>Enjoys To: \{hobby\}</h4>\par
+      <button className='btn' onClick=\{displayPerson\}>\par
+        show john\par
+      </button>\par
+    </>\par
+  );\par
+\};\par
+\par
+export default UseStateObject;\par
+```\par
+\par
+#### Automatic Batching\par
+\par
+In React, "batching" refers to the process of grouping multiple state updates into a single update. This can be useful in certain cases because it allows React to optimize the rendering of your components by minimizing the number of DOM updates that it has to perform.\par
+\par
+By default, React uses a technique called "auto-batching" to group state updates that occur within the same event loop into a single update. This means that if you call the state update function multiple times in a short period of time, React will only perform a single re-render for all of the updates.\par
+\par
+React 18 ensures that state updates invoked from any location will be batched by default. This will batch state updates, including native event handlers, asynchronous operations, timeouts, and intervals.\par
+\par
+#### Switch to Object\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const UseStateObject = () => \{\par
+  const [person, setPerson] = useState(\{\par
+    name: 'peter',\par
+    age: 24,\par
+    hobby: 'read books',\par
+  \});\par
+\par
+  const displayPerson = () => \{\par
+    setPerson(\{ name: 'john', age: 28, hobby: 'scream at the computer' \});\par
+    // be careful, don't overwrite\par
+    // setPerson('shakeAndBake');\par
+    // setPerson(\{ name: 'susan' \});\par
+    // setPerson(\{ ...person, name: 'susan' \});\par
+  \};\par
+  return (\par
+    <>\par
+      <h3>\{person.name\}</h3>\par
+      <h3>\{person.age\}</h3>\par
+      <h4>Enjoys To: \{person.hobby\}</h4>\par
+      <button className='btn' onClick=\{displayPerson\}>\par
+        show john\par
+      </button>\par
+    </>\par
+  );\par
+\};\par
+\par
+export default UseStateObject;\par
+```\par
+\par
+#### Set Function "Gotcha"\par
+\par
+```js\par
+import Starter from './tutorial/01-useState/starter/05-useState-gotcha.jsx';\par
+```\par
+\par
+Setup Challenge :\par
+\par
+- setup a state value and the button\par
+- add functionality to increase value by 1\par
+- log a state value, right after setFunction\par
+\par
+Keep in mind that the state update function setState does not immediately mutate the state. Instead, it schedules an update to the state and tells React that it needs to re-render the component. The actual state update will be performed as part of the next rendering cycle. Be mindful when you need to set state value based on a different state value.\par
+\par
+trivial example\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const UseStateGotcha = () => \{\par
+  const [value, setValue] = useState(0);\par
+\par
+  const handleClick = () => \{\par
+    setValue(value + 1);\par
+    //  be careful it's the old value\par
+    console.log(value);\par
+    //  so if you have any functionality\par
+    // that relies on the latest value\par
+    // it will be wrong !!!\par
+  \};\par
+  return (\par
+    <div>\par
+      <h1>\{value\}</h1>\par
+      <button className='btn' onClick=\{handleClick\}>\par
+        increase\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default UseStateGotcha;\par
+```\par
+\par
+If you want to update the state immediately and synchronously, you can pass a function to setState that receives the previous state as an argument and returns the new state. For example:\par
+\par
+```js\par
+setState((prevState) => \{\par
+  return \{ ...prevState, value: newValue \};\par
+\});\par
+```\par
+\par
+This can be useful if you need to update the state based on the previous state, or if you need to update the state synchronously.\par
+\par
+```js\par
+const handleClick = () => \{\par
+  setValue((currentState) => \{\par
+    // must return otherwise undefined\par
+    // below is the latest/current state value\par
+    const newState = currentState + 1;\par
+    return newState;\par
+  \});\par
+\};\par
+```\par
+\par
+- setTimeout Example\par
+\par
+```js\par
+const handleClick = () => \{\par
+  // setTimeout(() => \{\par
+  // console.log('clicked the button');\par
+  //   setValue(value + 1);\par
+  // \}, 3000);\par
+  setTimeout(() => \{\par
+    console.log('clicked the button');\par
+    setValue((currentState) => \{\par
+      return currentState + 1;\par
+    \});\par
+  \}, 3000);\par
+\};\par
+```\par
+\par
+- as an example refactor code in\par
+  /tutorial/01-useState/03-useState-array\par
+- should we use functional update approach for everything?\par
+\par
+#### Code Example\par
+\par
+```js\par
+import Starter from './tutorial/02-useEffect/starter/01-code-example.jsx';\par
+```\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const ComponentExample = () => \{\par
+  const [value, setValue] = useState(0);\par
+  const sayHello = () => \{\par
+    console.log('hello there');\par
+    // be careful\par
+    // setValue(value + 1);\par
+  \};\par
+  sayHello();\par
+  return (\par
+    <div>\par
+      <h1>value : \{value\}</h1>\par
+      <button className='btn' onClick=\{() => setValue(value + 1)\}>\par
+        click me\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+export default ComponentExample;\par
+```\par
+\par
+- the problem starts when we update the state\par
+\par
+```js\par
+const [value, setValue] = useState(0);\par
+\par
+const sayHello = () => \{\par
+  console.log('hello there');\par
+  // be careful, you will have infinite loop\par
+  setValue(value + 1);\par
+\};\par
+sayHello();\par
+```\par
+\par
+- initial render - setup state value and invoke sayHello\par
+- in the sayHello update state, trigger re-render\par
+\par
+- re-render - setup state value and invoke sayHello\par
+- in the sayHello update state, trigger re-render\par
+\par
+- repeat\par
+- repeat\par
+- repeat\par
+  ..................................................\par
+\par
+- but what about fetching data?\par
+\par
+#### useEffect Basics\par
+\par
+```js\par
+import Starter from './tutorial/02-useEffect/starter/02-useEffect-basics.jsx';\par
+```\par
+\par
+useEffect is a hook in React that allows you to perform side effects in function components.There is no need for urban dictionary - basically any work outside of the component. Some examples of side effects are: subscriptions, fetching data, directly updating the DOM, event listeners, timers, etc.\par
+\par
+- useEffect hook\par
+- accepts two arguments (second optional)\par
+- first argument - cb function\par
+- second argument - dependency array\par
+- by default runs on each render (initial and re-render)\par
+- cb can't return promise (so can't make it async)\par
+- if dependency array empty [] runs only on initial render\par
+\par
+```js\par
+import \{ useState, useEffect \} from 'react';\par
+\par
+const UseEffectBasics = () => \{\par
+  const [value, setValue] = useState(0);\par
+  const sayHello = () => \{\par
+    console.log('hello there');\par
+  \};\par
+\par
+  sayHello();\par
+\par
+  // useEffect(() => \{\par
+  //   console.log('hello from useEffect');\par
+  // \});\par
+\par
+  useEffect(() => \{\par
+    console.log('hello from useEffect');\par
+  \}, []);\par
+  return (\par
+    <div>\par
+      <h1>value : \{value\}</h1>\par
+      <button className='btn' onClick=\{() => setValue(value + 1)\}>\par
+        click me\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+export default UseEffectBasics;\par
+```\par
+\par
+#### Multiple Effects\par
+\par
+```js\par
+import Starter from './tutorial/02-useEffect/starter/03-multiple-effects.jsx';\par
+```\par
+\par
+```js\par
+import \{ useState, useEffect \} from 'react';\par
+\par
+const MultipleEffects = () => \{\par
+  const [value, setValue] = useState(0);\par
+  const [secondValue, setSecondValue] = useState(0);\par
+\par
+  useEffect(() => \{\par
+    console.log('hello from first useEffect');\par
+  \}, [value]);\par
+\par
+  useEffect(() => \{\par
+    console.log('hello from second useEffect');\par
+  \}, [secondValue]);\par
+  return (\par
+    <div>\par
+      <h1>value : \{value\}</h1>\par
+      <button className='btn' onClick=\{() => setValue(value + 1)\}>\par
+        value\par
+      </button>\par
+      <h1>second value : \{secondValue\}</h1>\par
+      <button className='btn' onClick=\{() => setSecondValue(secondValue + 1)\}>\par
+        second value\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+export default MultipleEffects;\par
+```\par
+\par
+#### Fetch Data\par
+\par
+```js\par
+import Starter from './tutorial/02-useEffect/starter/04-fetch-data.jsx';\par
+```\par
+\par
+[Javascript Nuggets - Fetch API](https://www.youtube.com/watch?v=C_VIKzfpRrg&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=18&t=343s)\par
+\par
+- later in the course we will use axios\par
+\par
+Setup Challenge :\par
+\par
+- import useState and useEffect\par
+- setup state value\par
+  - users - default value []\par
+- setup useEffect\par
+- MAKE SURE IT RUNS ONLY ON INITIAL RENDER\par
+- in the cb, create a function which performs fetch functionality\par
+  - use url I provided in the starter file\par
+  - you can use .then or async\par
+  - set users equal to result\par
+  - iterate over the list and display image, user name and link\par
+- DON'T WORRY ABOUT CSS, MOST IMPORTANT LOGIC !!!\par
+\par
+```js\par
+import \{ useState, useEffect \} from 'react';\par
+\par
+const url = '{{\field{\*\fldinst{HYPERLINK https://api.github.com/users }}{\fldrslt{https://api.github.com/users\ul0\cf0}}}}\f0\fs22 ';\par
+\par
+const FetchData = () => \{\par
+  const [users, setUsers] = useState([]);\par
+\par
+  useEffect(() => \{\par
+    // you can also setup function outside\par
+    const fetchData = async () => \{\par
+      try \{\par
+        const response = await fetch(url);\par
+        const users = await response.json();\par
+        setUsers(users);\par
+      \} catch (error) \{\par
+        console.log(error);\par
+      \}\par
+    \};\par
+    fetchData();\par
+  \}, []);\par
+  return (\par
+    <section>\par
+      <h3>github users</h3>\par
+      <ul className='users'>\par
+        \{users.map((user) => \{\par
+          const \{ id, login, avatar_url, html_url \} = user;\par
+          return (\par
+            <li key=\{id\}>\par
+              <img src=\{avatar_url\} alt=\{login\} />\par
+              <div>\par
+                <h5>\{login\}</h5>\par
+                <a href=\{html_url\}>profile</a>\par
+              </div>\par
+            </li>\par
+          );\par
+        \})\}\par
+      </ul>\par
+    </section>\par
+  );\par
+\};\par
+export default FetchData;\par
+```\par
+\par
+#### Cleanup Function\par
+\par
+```js\par
+import Starter from './tutorial/02-useEffect/starter/05-cleanup-function.jsx';\par
+```\par
+\par
+Will Cover After 03-conditional-rendering\par
+\par
+- Setup Challenge :\par
+\par
+- create state value\par
+- in jsx return button which toggles state value\par
+- based on condition return second component (simple return)\par
+- inside second component create useEffect and run it only on initial render\par
+\par
+```js\par
+import \{ useEffect, useState \} from 'react';\par
+\par
+const CleanupFunction = () => \{\par
+  const [toggle, setToggle] = useState(false);\par
+  return (\par
+    <div>\par
+      <button className='btn' onClick=\{() => setToggle(!toggle)\}>\par
+        toggle component\par
+      </button>\par
+      \{toggle && <RandomComponent />\}\par
+    </div>\par
+  );\par
+\};\par
+const RandomComponent = () => \{\par
+  useEffect(() => \{\par
+    console.log('hmm, this is interesting');\par
+  \}, []);\par
+  return <h1>hello there</h1>;\par
+\};\par
+export default CleanupFunction;\par
+```\par
+\par
+Vanilla JS\par
+\par
+```js\par
+const intID = setInterval(() => \{\par
+  console.log('hello from interval');\par
+\}, 1000);\par
+clearInterval(intID);\par
+```\par
+\par
+```js\par
+const someFunc = () => \{\par
+  // some logic here\par
+\};\par
+window.addEventListener('scroll', someFunc);\par
+window.removeEventListener('scroll', someFunc);\par
+```\par
+\par
+```js\par
+import \{ useEffect, useState \} from 'react';\par
+\par
+const CleanupFunction = () => \{\par
+  const [toggle, setToggle] = useState(false);\par
+  return (\par
+    <div>\par
+      <button className='btn' onClick=\{() => setToggle(!toggle)\}>\par
+        toggle component\par
+      </button>\par
+      \{toggle && <RandomComponent />\}\par
+    </div>\par
+  );\par
+\};\par
+const RandomComponent = () => \{\par
+  useEffect(() => \{\par
+    // console.log('hmm, this is interesting');\par
+    const intID = setInterval(() => \{\par
+      console.log('hello from interval');\par
+    \}, 1000);\par
+    // does not stop, keeps going\par
+    // every time we render component new interval gets created\par
+    return () => clearInterval(intID);\par
+  \}, []);\par
+  return <h1>hello there</h1>;\par
+\};\par
+export default CleanupFunction;\par
+```\par
+\par
+```js\par
+useEffect(() => \{\par
+  // console.log('hmm, this is interesting');\par
+  const someFunc = () => \{\par
+    // some logic here\par
+  \};\par
+  window.addEventListener('scroll', someFunc);\par
+  return () => window.removeEventListener('scroll', someFunc);\par
+\}, []);\par
+```\par
+\par
+#### You Might Not Need an Effect\par
+\par
+[You Might Not Need an Effect](https://beta.reactjs.org/learn/you-might-not-need-an-effect)\par
+\par
+- will still utilize useEffect\par
+- there is still plenty of code using useEffect\par
+\par
+- fetching data\par
+  replaced by libraries - react query, rtk query, swr or next.js\par
+\par
+```js\par
+import \{ useHook \} from 'library';\par
+\par
+function Example() \{\par
+  const \{ data, error, isLoading \} = useHook('url', fetcher);\par
+\par
+  if (error) return <div>failed to load</div>;\par
+  if (isLoading) return <div>loading...</div>;\par
+  return <div>hello \{data.name\}!</div>;\par
+\}\par
+```\par
+\par
+- rest of them by refactoring code\par
+\par
+#### Multiple Returns - Basics\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/01-multiple-returns-basics.jsx';\par
+```\par
+\par
+Vanilla JS\par
+\par
+```js\par
+const sayHello = (name) => \{\par
+  if (name) \{\par
+    return `Hello, $\{name\}`;\par
+    // exit the function, skip rest of the code\par
+  \}\par
+  // so if name provided, won't get to this line\par
+  return 'Hello, there';\par
+\};\par
+\par
+const firstResp = sayHello('john');\par
+console.log(firstResp); // Hello, john\par
+const secondResp = sayHello();\par
+console.log(secondResp); // Hello, there\par
+```\par
+\par
+- if no explicit return by default function returns 'undefined'\par
+\par
+```js\par
+import \{ useEffect, useState \} from 'react';\par
+\par
+const MultipleReturnsBasics = () => \{\par
+  // while fetching data\par
+  // convention with boolean values "isSomething"\par
+  const [isLoading, setIsLoading] = useState(true);\par
+\par
+  useEffect(() => \{\par
+    setTimeout(() => \{\par
+      // done fetching data\par
+      setIsLoading(false);\par
+    \}, 3000);\par
+  \}, []);\par
+\par
+  // can return entire app\par
+  if (isLoading) \{\par
+    return <h2>Loading...</h2>;\par
+  \}\par
+\par
+  return <h2>My App</h2>;\par
+\};\par
+export default MultipleReturnsBasics;\par
+```\par
+\par
+#### Multiple Returns - Fetch Data\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/02-multiple-returns-fetch-data.jsx';\par
+```\par
+\par
+Setup Challenge :\par
+\par
+- practice on setting up state values and data fetching\par
+- create state variable\par
+  - user - default value null\par
+- fetch data from the url (for now just log result)\par
+- if you see user object in the console, continue with the videos\par
+\par
+```js\par
+import \{ useEffect, useState \} from 'react';\par
+const url = '{{\field{\*\fldinst{HYPERLINK https://api.github.com/users/QuincyLarson }}{\fldrslt{https://api.github.com/users/QuincyLarson\ul0\cf0}}}}\f0\fs22 ';\par
+\par
+const MultipleReturnsFetchData = () => \{\par
+  const [user, setUser] = useState(null);\par
+\par
+  useEffect(() => \{\par
+    const fetchUser = async () => \{\par
+      try \{\par
+        const resp = await fetch(url);\par
+        const user = await resp.json();\par
+        console.log(user);\par
+      \} catch (error) \{\par
+        // fetch only cares about network errors\par
+        // will work with axios\par
+        console.log(error);\par
+      \}\par
+    \};\par
+    fetchUser();\par
+  \}, []);\par
+\par
+  return <h2>Fetch Example</h2>;\par
+\};\par
+export default MultipleReturnsFetchData;\par
+```\par
+\par
+Data Fetching :\par
+\par
+- usually three options\par
+\par
+  - loading - waiting for data to arrive (display loading state)\par
+  - error - there was an error (display error message)\par
+  - success - received data (display data)\par
+\par
+```js\par
+import \{ useEffect, useState \} from 'react';\par
+const url = '{{\field{\*\fldinst{HYPERLINK https://api.github.com/users/QuincyLarson }}{\fldrslt{https://api.github.com/users/QuincyLarson\ul0\cf0}}}}\f0\fs22 ';\par
+\par
+const MultipleReturnsFetchData = () => \{\par
+  // convention to setup booleans with isSomething\par
+  const [isLoading, setIsLoading] = useState(true);\par
+  const [isError, setIsError] = useState(false);\par
+  const [user, setUser] = useState(null);\par
+\par
+  useEffect(() => \{\par
+    const fetchUser = async () => \{\par
+      try \{\par
+        const resp = await fetch(url);\par
+        const user = await resp.json();\par
+        // console.log(user);\par
+        setUser(user);\par
+      \} catch (error) \{\par
+        setIsError(true);\par
+        console.log(error);\par
+      \}\par
+      // hide loading\par
+      setIsLoading(false);\par
+    \};\par
+    fetchUser();\par
+  \}, []);\par
+  // order matters\par
+  // don't place user JSX before loading or error\par
+  if (isLoading) \{\par
+    return <h2>Loading...</h2>;\par
+  \}\par
+  if (isError) \{\par
+    return <h2>There was an error...</h2>;\par
+  \}\par
+  return (\par
+    <div>\par
+      <img\par
+        style=\{\{ width: '150px', borderRadius: '25px' \}\}\par
+        src=\{user.avatar_url\}\par
+        alt=\{user.name\}\par
+      />\par
+      <h2>\{user.name\}</h2>\par
+      <h4>works at \{user.company\}</h4>\par
+      <p>\{user.bio\}</p>\par
+    </div>\par
+  );\par
+\};\par
+export default MultipleReturnsFetchData;\par
+```\par
+\par
+#### Fetch Errors "Gotcha" (optional)\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/02-multiple-returns-fetch-data.jsx';\par
+```\par
+\par
+Unlike for example Axios, by default, the fetch() API does not consider HTTP status codes in the 4xx or 5xx range to be errors. Instead, it considers these status codes to be indicative of a successful request,\par
+\par
+```js\par
+try \{\par
+const resp = await fetch(url);\par
+// console.log(resp);\par
+if (!resp.ok) \{\par
+  setIsError(true);\par
+  setIsLoading(false);\par
+  return;\par
+\}\par
+\par
+const user = await resp.json();\par
+setUser(user);\par
+\par
+\}\par
+\par
+```\par
+\par
+#### Order Matters - Setup\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/02-multiple-returns-fetch-data.jsx';\par
+```\par
+\par
+Please don't dismiss this topic. A lot of questions in course Q&A.\par
+\par
+Challenge :\par
+\par
+- destructure properties and remove user from JSX\par
+- you might or might not encounter the bug\par
+\par
+```js\par
+return (\par
+  <div>\par
+    <img\par
+      style=\{\{ width: '100px', borderRadius: '25px' \}\}\par
+      src=\{avatar_url\}\par
+      alt=\{name\}\par
+    />\par
+    <h2>\{name\}</h2>\par
+    <h4>works at \{company\}</h4>\par
+    <p>\{bio\}</p>\par
+  </div>\par
+);\par
+```\par
+\par
+#### Order Matters - Solution\par
+\par
+- before returns\par
+\par
+```js\par
+const [user, setUser] = useState(null);\par
+console.log(user); // still null\par
+// we can't pull out properties from null\par
+const \{ avatar_url, name, company, bio \} = user;\par
+```\par
+\par
+- after returns\par
+\par
+```js\par
+console.log(user); // user object;\par
+const \{ avatar_url, name, company, bio \} = user;\par
+```\par
+\par
+```js\par
+return (\par
+  <div>\par
+    <img\par
+      style=\{\{ width: '100px', borderRadius: '25px' \}\}\par
+      src=\{avatar_url\}\par
+      alt=\{name\}\par
+    />\par
+    <h2>\{name\}</h2>\par
+    <h4>works at \{company\}</h4>\par
+    <p>\{bio\}</p>\par
+  </div>\par
+);\par
+```\par
+\par
+Vanilla JS\par
+\par
+```js\par
+const someObject = \{\par
+  name: 'jo koy',\par
+\};\par
+// this is cool\par
+someObject.name; // returns 'jo koy'\par
+someObject.propertyThatDoesNotExist; // returns undefined\par
+\par
+// not cool at all, javascript will scream, yell and complain\par
+const randomValue = null;\par
+randomValue.name;\par
+\par
+// this is ok\par
+const randomList = [];\par
+console.log(randomList[0]); // returns undefined\par
+\par
+// not cool at all, javascript will scream, yell and complain\par
+console.log(randomList[0].name);\par
+```\par
+\par
+#### Fetch Function Location\par
+\par
+```js\par
+const fetchData = async () => \{\par
+  // fetch data\par
+\};\par
+\par
+useEffect(() => \{\par
+  fetchData();\par
+\}, []);\par
+```\par
+\par
+- DON'T ADD fetchData to dependency array !!!\par
+- IT WILL TRIGGER INFINITE LOOP !!!\par
+\par
+#### DON'T CALL HOOKS CONDITIONALLY\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/03-hooks-rule.jsx';\par
+```\par
+\par
+```js\par
+import \{ useState, useEffect \} from 'react';\par
+\par
+const Example = () => \{\par
+  const [condition, setCondition] = useState(true);\par
+  if (condition) \{\par
+    // won't work\par
+    const [state, setState] = useState(false);\par
+  \}\par
+\par
+  if (condition) \{\par
+    return <h2>Hello There</h2>;\par
+  \}\par
+  // this will also fail\par
+  useEffect(() => \{\par
+    console.log('hello there');\par
+  \}, []);\par
+  return <h2>example</h2>;\par
+\};\par
+\par
+export default Example;\par
+```\par
+\par
+#### Truthy and Falsy Values (optional)\par
+\par
+Vanilla JS\par
+\par
+In JavaScript, a value is considered "truthy" if it is evaluated to true when used in a boolean context. A value is considered "falsy" if it is evaluated to false when used in a boolean context.\par
+\par
+Here is a list of values that are considered falsy in JavaScript:\par
+\par
+false\par
+0 (zero)\par
+"" (empty string)\par
+null\par
+undefined\par
+NaN (Not a Number)\par
+All other values, including objects and arrays, are considered truthy.\par
+\par
+For example:\par
+\par
+```js\par
+const x = 'Hello';\par
+const y = '';\par
+const z = 0;\par
+\par
+if (x) \{\par
+  console.log('x is truthy');\par
+\}\par
+\par
+if (y) \{\par
+  console.log('y is truthy');\par
+\} else \{\par
+  console.log('y is falsy');\par
+\}\par
+\par
+if (z) \{\par
+  console.log('z is truthy');\par
+\} else \{\par
+  console.log('z is falsy');\par
+\}\par
+\par
+// Output:\par
+// "x is truthy"\par
+// "y is falsy"\par
+// "z is falsy"\par
+```\par
+\par
+In this example, the variable x is a non-empty string, which is considered truthy, so the first if statement is executed. The variable y is an empty string, which is considered falsy, so the else block of the second if statement is executed. The variable z is the number 0, which is considered falsy, so the else block of the third if statement is executed.\par
+\par
+#### Short Circuit Evaluation (optional)\par
+\par
+Vanilla JS\par
+\par
+In JavaScript, short-circuit evaluation is a technique that allows you to use logical operators (such as && and ||) to perform conditional evaluations in a concise way.\par
+\par
+The && operator (logical AND) returns the first operand if it is "falsy", or the second operand if the first operand is "truthy".\par
+\par
+For example:\par
+\par
+```js\par
+const x = 0;\par
+const y = 1;\par
+\par
+console.log(x && y); // Output: 0 (the first operand is falsy, so it is returned)\par
+console.log(y && x); // Output: 0 (the second operand is falsy, so it is returned)\par
+```\par
+\par
+The || operator (logical OR) returns the first operand if it is "truthy", or the second operand if the first operand is "falsy".\par
+\par
+For example:\par
+\par
+```js\par
+const x = 0;\par
+const y = 1;\par
+\par
+console.log(x || y); // Output: 1 (the first operand is falsy, so the second operand is returned)\par
+console.log(y || x); // Output: 1 (the first operand is truthy, so it is returned)\par
+```\par
+\par
+Short-circuit evaluation can be useful in cases where you want to perform a certain action only if a certain condition is met, or you want to return a default value if a certain condition is not met.\par
+\par
+For example:\par
+\par
+```js\par
+function displayName(name) \{\par
+  return name || 'Anonymous';\par
+\}\par
+\par
+console.log(displayName('Pizza')); // Output: "Pizza"\par
+console.log(displayName()); // Output: "Anonymous"\par
+```\par
+\par
+In this example, the displayName() function returns the name property of the user object if it exists, or "Anonymous" if the name property is not present. This is done using the || operator and short-circuit evaluation.\par
+\par
+#### Short Circuit Evaluation React - Basics\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/04-short-circuit-overview.jsx';\par
+```\par
+\par
+Setup Challenge :\par
+\par
+- create two state values\par
+- one "falsy" and second "truthy"\par
+- setup both conditions for each operator in JSX - hint \{\}\par
+  - || OR\par
+  - && AND\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const ShortCircuitOverview = () => \{\par
+  // falsy\par
+  const [text, setText] = useState('');\par
+  // truthy\par
+  const [name, setName] = useState('susan');\par
+\par
+  const codeExample = text || 'hello world';\par
+\par
+  // can't use if statements\par
+  return (\par
+    <div>\par
+      \{/* \{if(someCondition)\{"won't work"\}\} */\}\par
+\par
+      <h4>Falsy OR : \{text || 'hello world'\}</h4>\par
+      <h4>Falsy AND \{text && 'hello world'\}</h4>\par
+      <h4>Truthy OR \{name || 'hello world'\}</h4>\par
+      <h4>Truthy AND \{name && 'hello world'\}</h4>\par
+      \{codeExample\}\par
+    </div>\par
+  );\par
+\};\par
+export default ShortCircuitOverview;\par
+```\par
+\par
+#### Short Circuit Evaluation in React - Common Approaches\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/05-short-circuit-examples.jsx';\par
+```\par
+\par
+Vanilla JS (Optional)\par
+The ! operator is a logical operator in JavaScript that negates a boolean value. It is equivalent to the not operator in other programming languages.\par
+\par
+For example:\par
+\par
+```js\par
+let isTrue = true;\par
+let isFalse = false;\par
+\par
+console.log(!isTrue); // outputs: false\par
+console.log(!isFalse); // outputs: true\par
+```\par
+\par
+You can use the ! operator to test if a value is not truthy or falsy:\par
+\par
+```js\par
+let val = 0;\par
+if (!val) \{\par
+  console.log('val is falsy');\par
+\}\par
+```\par
+\par
+You can also use the ! operator to convert a value to a boolean and negate it:\par
+\par
+```js\par
+let val = 'hello';\par
+let bool = !val; // bool is now false\par
+\par
+val = '';\par
+bool = !val; // bool is now true\par
+```\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const ShortCircuitOverview = () => \{\par
+  // falsy\par
+  const [text, setText] = useState('');\par
+  // truthy\par
+  const [name, setName] = useState('susan');\par
+  const [user, setUser] = useState(\{ name: 'john' \});\par
+  const [isEditing, setIsEditing] = useState(false);\par
+\par
+  // can't use if statements\par
+  return (\par
+    <div>\par
+      <h2>\{text || 'default value'\}</h2>\par
+      \{text && (\par
+        <div>\par
+          <h2> whatever return</h2>\par
+          <h2>\{name\}</h2>\par
+        </div>\par
+      )\}\par
+      \{/* more info below */\}\par
+      \{!text && (\par
+        <div>\par
+          <h2> whatever return</h2>\par
+          <h2>\{name\}</h2>\par
+        </div>\par
+      )\}\par
+      \{user && <SomeComponent name=\{user.name\} />\}\par
+      <h2 style=\{\{ margin: '1rem 0' \}\}>Ternary Operator</h2>\par
+      <button className='btn'>\{isEditing ? 'edit' : 'add'\}</button>\par
+      \{user ? (\par
+        <div>\par
+          <h4>hello there user \{user.name\}</h4>\par
+        </div>\par
+      ) : (\par
+        <div>\par
+          <h2>please login</h2>\par
+        </div>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+const SomeComponent = (\{ name \}) => \{\par
+  return (\par
+    <div>\par
+      <h4>hello there, \{name\}</h4>\par
+      <button className='btn'>log out</button>\par
+    </div>\par
+  );\par
+\};\par
+export default ShortCircuitEvaluation;\par
+```\par
+\par
+#### Ternary Operator\par
+\par
+Vanilla JS\par
+\par
+In JavaScript, the ternary operator is a way to concisely express a simple conditional statement. It is often called the "conditional operator" or the "ternary conditional operator".\par
+\par
+Here is the basic syntax for using the ternary operator:\par
+\par
+```js\par
+condition ? expression1 : expression2;\par
+```\par
+\par
+If condition is truthy, the operator will return expression1. If condition is falsy, it will return expression2.\par
+\par
+Jobster Example\par
+\par
+[Jobster ]({{\field{\*\fldinst{HYPERLINK https://redux-toolkit-jobster.netlify.app/landing }}{\fldrslt{https://redux-toolkit-jobster.netlify.app/landing\ul0\cf0}}}}\f0\fs22 )\par
+\par
+#### Toggle Challenge\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/06-toggle-challenge.jsx';\par
+```\par
+\par
+- create state value (boolean)\par
+- return a button and a component/element\par
+- when user clicks the button\par
+  - toggle state value\par
+  - conditionally render component/element\par
+\par
+Initial Setup\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const ToggleChallenge = () => \{\par
+  const [showAlert, setShowAlert] = useState(false);\par
+\par
+  const toggleAlert = () => \{\par
+    if (showAlert) \{\par
+      setShowAlert(false);\par
+      return;\par
+    \}\par
+    setShowAlert(true);\par
+  \};\par
+\par
+  return (\par
+    <div>\par
+      <button className='btn' onClick=\{toggleAlert\}>\par
+        toggle alert\par
+      </button>\par
+      \{showAlert && <Alert />\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+const Alert = () => \{\par
+  return <div className='alert alert-danger'>hello world</div>;\par
+\};\par
+export default ToggleChallenge;\par
+```\par
+\par
+Improvements\par
+\par
+```js\par
+<button className='btn' onClick=\{() => setShowAlert(!showAlert)\}>\par
+```\par
+\par
+#### User Challenge\par
+\par
+```js\par
+import Starter from './tutorial/03-conditional-rendering/starter/07-user-challenge.jsx';\par
+```\par
+\par
+- create state value\par
+  - user - default value null\par
+- create two functions\par
+  - login - set's user equal to object with name property\par
+  - logout - set's user equal to null\par
+- in jsx use ? to display two different setups\par
+\par
+- h4 with "hello there, user name" and logout button\par
+- h4 with "please login " and login button\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const UserChallenge = () => \{\par
+  const [user, setUser] = useState(null);\par
+\par
+  const login = () => \{\par
+    // normally connect to db or api\par
+    setUser(\{ name: 'vegan food truck' \});\par
+  \};\par
+  const logout = () => \{\par
+    setUser(null);\par
+  \};\par
+\par
+  return (\par
+    <div>\par
+      \{user ? (\par
+        <div>\par
+          <h4>hello there, \{user.name\}</h4>\par
+          <button className='btn' onClick=\{logout\}>\par
+            logout\par
+          </button>\par
+        </div>\par
+      ) : (\par
+        <div>\par
+          <h4>Please Login</h4>\par
+          <button className='btn' onClick=\{login\}>\par
+            login\par
+          </button>\par
+        </div>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default UserChallenge;\par
+```\par
+\par
+#### Project Structure - Default Export\par
+\par
+/tutorial/04-project-structure/starter\par
+\par
+There are more options\par
+\par
+Normally somewhere in the src\par
+\par
+/components/componentName.jsx\par
+/screens/componentName.jsx\par
+\par
+- create navbar folder\par
+\par
+  - setup Navbar.jsx (component)\par
+  - Navbar.css (styles)\par
+\par
+- import in App.jsx\par
+\par
+import Final from 'pathToFolder/Navbar/Navbar'\par
+\par
+- first solution rename to index.jsx(entry point)\par
+\par
+Works but eventually too many index tabs :):):)\par
+\par
+- rename back to Navbar.jsx\par
+- create index.jsx\par
+\par
+```js\par
+export \{ default \} from './Navbar';\par
+```\par
+\par
+#### Project Structure - Named Exports\par
+\par
+/tutorial/04-project-structure/starter\par
+\par
+- only makes sense if you have quite a few files\par
+\par
+- create Pages directory\par
+- setup two components Home.jsx and About.jsx\par
+\par
+- import both in the App.jxs\par
+\par
+import Home from 'pathToFolder/Pages/Home';\par
+import About from 'pathToFolder/Pages/About';\par
+\par
+A lot of work/lines of code\par
+\par
+- create index.jsx\par
+\par
+```js\par
+import Home from './Home';\par
+import About from './About';\par
+\par
+export \{ Home, About \};\par
+```\par
+\par
+in App.jsx\par
+\par
+import \{Home, About\} from 'pathToFolder/Pages\par
+\par
+#### Project Structure - Export Group\par
+\par
+/tutorial/04-project-structure/starter\par
+\par
+- create Example directory\par
+- setup two components (setup simple returns) and index.jsx file\par
+- in index.jsx setup return and render both components (import)\par
+- import/render index.jsx in App.jsx\par
+\par
+#### Project Structure - Extra Extensions\par
+\par
+- code spell checker - works well with code and documents.\par
+- glean - easy extract JSX into a new component\par
+\par
+#### Leverage Javascript\par
+\par
+[Javascript Nuggets -Optional Chaining](https://www.youtube.com/watch?v=PuEGrylM1x8&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=12&t=254s)\par
+\par
+/tutorial/05-leverage-javascript/starter\par
+\par
+Setup Challenge\par
+\par
+- take a look at the people in array in data.js\par
+- create List.jsx component\par
+- in List.jsx import and iterate over people (data)\par
+- for now just render name\par
+- once you have list setup separate Person.jsx component\par
+  - try glean extension\par
+- in Person render\par
+  - name, nickName, image\par
+\par
+Yes, there will be a bug.\par
+\par
+```js\par
+import \{ people \} from '../../../data';\par
+\par
+const List = () => \{\par
+  return (\par
+    <div>\par
+      \{people.map((person) => \{\par
+        return <div>\{person.name\}</div>;\par
+      \})\}\par
+    </div>\par
+  );\par
+\};\par
+export default List;\par
+```\par
+\par
+List.jsx\par
+\par
+```js\par
+import \{ people \} from '../../../data';\par
+import Person from './Person';\par
+const List = () => \{\par
+  return (\par
+    <div>\par
+      \{people.map((person) => \{\par
+        return <Person key=\{person.name\} \{...person\} />;\par
+      \})\}\par
+    </div>\par
+  );\par
+\};\par
+export default List;\par
+```\par
+\par
+Person.jsx\par
+\par
+```js\par
+import React from 'react';\par
+import avatar from '../../../assets/default-avatar.svg';\par
+\par
+export function Person(\{ name, nickName = 'shakeAndBake', images \}) \{\par
+  // before optional chaining\par
+\par
+  // const img =\par
+  //   (images && images[0] && images[0].small && images[0].small.url) || avatar;\par
+  // Combining with the nullish coalescing operator ??\par
+  // const img = images?.[0]?.small?.url ?? avatar;\par
+  // ?? vs || - please utilize the search engine\par
+\par
+  const img = images?.[0]?.small?.url || avatar;\par
+\par
+  return (\par
+    <div>\par
+      <img src=\{img\} alt=\{name\} style=\{\{ width: '50px' \}\} />\par
+      <h4>\{name\} </h4>\par
+      <p>Nickname : \{nickName\}</p>\par
+    </div>\par
+  );\par
+\}\par
+```\par
+\par
+#### Default Values - Vanilla JS (Optional)\par
+\par
+In JavaScript, when defining a function, you can specify default values for its parameters. This means that if a caller of the function does not provide a value for a particular parameter, the default value will be used instead. Default parameters are defined by assigning a value to the parameter in the function definition.\par
+\par
+For example, consider the following function, which takes two parameters, x and y, and returns their sum:\par
+\par
+```js\par
+function add(x, y) \{\par
+  return x + y;\par
+\}\par
+```\par
+\par
+If we call this function with only one argument, it will return NaN because y is undefined.\par
+\par
+We can set default values for x,y as:\par
+\par
+```js\par
+function add(x = 0, y = 0) \{\par
+  return x + y;\par
+\}\par
+```\par
+\par
+Now, if we call add(3), the function will return 3, because the default value of 0 is used for the y parameter.\par
+\par
+#### Optional Chaining - Vanilla JS (Optional)\par
+\par
+n JavaScript, the optional chaining operator (?.) is a new feature that allows you to access properties of an object without worrying about whether the object or the property is null or undefined. It's a shorthand for a common pattern of checking for null or undefined before accessing an object's property.\par
+\par
+For example, consider the following code, which accesses the firstName property of an object:\par
+\par
+```js\par
+const person = \{ name: \{ first: 'John', last: 'Doe' \} \};\par
+console.log(person.name.first);\par
+```\par
+\par
+If the name property is null or undefined, this code will throw an error. To prevent this, we can use the optional chaining operator:\par
+\par
+```js\par
+console.log(person?.name?.first);\par
+```\par
+\par
+Now, if the person.name is null or undefined, this code will simply return undefined instead of throwing an error. This make the code more robust and readable.\par
+\par
+#### Controlled Inputs - Setup\par
+\par
+```js\par
+import Starter from './tutorial/06-forms/starter/01-controlled-inputs.jsx';\par
+```\par
+\par
+Setup (for all form videos)\par
+\par
+```js\par
+const ControlledInputs = () => \{\par
+  return (\par
+    <form className='form'>\par
+      <h4>controlled inputs</h4>\par
+      <div className='form-row'>\par
+        <label htmlFor='name' className='form-label'>\par
+          name\par
+        </label>\par
+        <input type='text' className='form-input' id='name' />\par
+      </div>\par
+      <div className='form-row'>\par
+        <label htmlFor='email' className='form-label'>\par
+          Email\par
+        </label>\par
+        <input type='email' className='form-input' id='email' />\par
+      </div>\par
+      <button type='submit' className='btn btn-block'>\par
+        submit\par
+      </button>\par
+    </form>\par
+  );\par
+\};\par
+export default ControlledInputs;\par
+```\par
+\par
+#### Controlled Inputs - Complete\par
+\par
+```js\par
+import Starter from './tutorial/06-forms/starter/01-controlled-inputs.jsx';\par
+```\par
+\par
+- setup state values\par
+- add value and onChange to each input\par
+- setup onSubmit\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+const ControlledInputs = () => \{\par
+  const [name, setName] = useState('');\par
+  const [email, setEmail] = useState('');\par
+\par
+  // const handleChange = (e) => \{\par
+  //   // for now we won't use it\par
+  //   const name = e.target.name;\par
+  //   const value = e.target.value;\par
+  // \};\par
+\par
+  const handleSubmit = (e) => \{\par
+    e.preventDefault();\par
+    // do something\par
+    console.log(name, email);\par
+  \};\par
+  return (\par
+    <form className='form' onSubmit=\{handleSubmit\}>\par
+      <h4>controlled inputs</h4>\par
+      <div className='form-row'>\par
+        <label htmlFor='name' className='form-label'>\par
+          name\par
+        </label>\par
+        <input\par
+          type='text'\par
+          className='form-input'\par
+          value=\{name\}\par
+          onChange=\{(e) => setName(e.target.value)\}\par
+          id='name'\par
+        />\par
+      </div>\par
+      <div className='form-row'>\par
+        <label htmlFor='email' className='form-label'>\par
+          Email\par
+        </label>\par
+        <input\par
+          type='email'\par
+          className='form-input'\par
+          id='email'\par
+          value=\{email\}\par
+          onChange=\{(e) => setEmail(e.target.value)\}\par
+        />\par
+      </div>\par
+      <button type='submit' className='btn btn-block'>\par
+        submit\par
+      </button>\par
+    </form>\par
+  );\par
+\};\par
+export default ControlledInputs;\par
+```\par
+\par
+#### User Challenge\par
+\par
+```js\par
+import Starter from './tutorial/06-forms/starter/02-user-challenge.jsx';\par
+```\par
+\par
+- setup controlled input (name input)\par
+- setup onSubmit (for now just placeholder)\par
+- import data array (first array) from data\par
+- create another state value (data as default)\par
+- iterate over and display right after form (h4)\par
+- when user submits the form add new person to the list\par
+\par
+- Extra Challenge\par
+  - add button and setup functionality to remove user\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+import \{ data \} from '../../../data';\par
+const UserChallenge = () => \{\par
+  const [name, setName] = useState('');\par
+  const [users, setUsers] = useState(data);\par
+\par
+  const handleSubmit = (e) => \{\par
+    e.preventDefault();\par
+    // do something\par
+    console.log(name);\par
+    // if no value, do nothing\par
+    if (!name) return;\par
+    // if value, setup new user and add to current users\par
+    const fakeId = Date.now();\par
+    console.log(fakeId);\par
+    // const newUser = \{ id: fakeId, name: name \};\par
+    const newUser = \{ id: fakeId, name \};\par
+    const updatedUsers = [...users, newUser];\par
+    setUsers(updatedUsers);\par
+    // set back to empty\par
+    setName('');\par
+  \};\par
+\par
+  const removeUser = (id) => \{\par
+    const updatedUsers = users.filter((person) => person.id !== id);\par
+    setUsers(updatedUsers);\par
+  \};\par
+  return (\par
+    <div>\par
+      <form className='form' onSubmit=\{handleSubmit\}>\par
+        <h4>Add User</h4>\par
+        <div className='form-row'>\par
+          <label htmlFor='name' className='form-label'>\par
+            name\par
+          </label>\par
+          <input\par
+            type='text'\par
+            className='form-input'\par
+            value=\{name\}\par
+            onChange=\{(e) => setName(e.target.value)\}\par
+            id='name'\par
+          />\par
+        </div>\par
+\par
+        <button type='submit' className='btn btn-block'>\par
+          submit\par
+        </button>\par
+      </form>\par
+      \{/* render users */\}\par
+      <h2>users</h2>\par
+\par
+      \{users.map((user) => \{\par
+        return (\par
+          <div key=\{user.id\}>\par
+            <h4>\{user.name\}</h4>\par
+            <button onClick=\{() => removeUser(user.id)\} className='btn'>\par
+              remove\par
+            </button>\par
+          </div>\par
+        );\par
+      \})\}\par
+    </div>\par
+  );\par
+\};\par
+export default UserChallenge;\par
+```\par
+\par
+#### Multiple Inputs\par
+\par
+```js\par
+import Starter from './tutorial/06-forms/starter/03-multiple-inputs.jsx';\par
+```\par
+\par
+[Javascript Nuggets - Dynamic Object Keys](https://www.youtube.com/watch?v=_qxCYtWm0tw&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=3&t=97s)\par
+\par
+- inputs must have name attribute\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+const MultipleInputs = () => \{\par
+  const [user, setUser] = useState(\{\par
+    name: '',\par
+    email: '',\par
+    password: '',\par
+  \});\par
+\par
+  const handleChange = (e) => \{\par
+    setUser(\{ ...user, [e.target.name]: e.target.value \});\par
+  \};\par
+\par
+  const handleSubmit = (e) => \{\par
+    e.preventDefault();\par
+    console.log(user);\par
+  \};\par
+  return (\par
+    <div>\par
+      <form className='form' onSubmit=\{handleSubmit\}>\par
+        <h4>Multiple Inputs</h4>\par
+        \{/* name */\}\par
+        <div className='form-row'>\par
+          <label htmlFor='name' className='form-label'>\par
+            name\par
+          </label>\par
+          <input\par
+            type='text'\par
+            className='form-input'\par
+            id='name'\par
+            name='name'\par
+            value=\{user.name\}\par
+            onChange=\{handleChange\}\par
+          />\par
+        </div>\par
+        \{/* email */\}\par
+        <div className='form-row'>\par
+          <label htmlFor='email' className='form-label'>\par
+            Email\par
+          </label>\par
+          <input\par
+            type='email'\par
+            className='form-input'\par
+            id='email'\par
+            name='email'\par
+            value=\{user.email\}\par
+            onChange=\{handleChange\}\par
+          />\par
+        </div>\par
+        \{/* password */\}\par
+        <div className='form-row'>\par
+          <label htmlFor='password' className='form-label'>\par
+            Password\par
+          </label>\par
+          <input\par
+            type='password'\par
+            className='form-input'\par
+            id='password'\par
+            name='password'\par
+            value=\{user.password\}\par
+            onChange=\{handleChange\}\par
+          />\par
+        </div>\par
+\par
+        <button type='submit' className='btn btn-block'>\par
+          submit\par
+        </button>\par
+      </form>\par
+    </div>\par
+  );\par
+\};\par
+export default MultipleInputs;\par
+```\par
+\par
+#### Other Inputs\par
+\par
+```js\par
+import Starter from './tutorial/06-forms/starter/04-other-inputs.jsx';\par
+```\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+const frameworks = ['react', 'angular', 'vue', 'svelte'];\par
+const OtherInputs = () => \{\par
+  const [shipping, setShipping] = useState(false);\par
+  const [framework, setFramework] = useState('react');\par
+\par
+  const handleShipping = (e) => \{\par
+    console.log(e.target.checked);\par
+    setShipping(e.target.checked);\par
+  \};\par
+  const handleFramework = (e) => \{\par
+    setFramework(e.target.value);\par
+  \};\par
+  return (\par
+    <div>\par
+      <form className='form'>\par
+        <h4>Other Inputs</h4>\par
+        \{/* name */\}\par
+        <div className='form-row' style=\{\{ textAlign: 'left' \}\}>\par
+          <input\par
+            type='checkbox'\par
+            checked=\{shipping\}\par
+            id='shipping'\par
+            name='shipping'\par
+            onChange=\{handleShipping\}\par
+          />\par
+          <label htmlFor='shipping'> Free Shipping </label>\par
+        </div>\par
+        <div className='form-row' style=\{\{ textAlign: 'left' \}\}>\par
+          <label htmlFor='framework' className='form-label'>\par
+            Framework\par
+          </label>\par
+          <select\par
+            name='framework'\par
+            id='framework'\par
+            value=\{framework\}\par
+            onChange=\{handleFramework\}\par
+          >\par
+            \{frameworks.map((framework) => \{\par
+              return <option key=\{framework\}>\{framework\}</option>;\par
+            \})\}\par
+          </select>\par
+        </div>\par
+        <button type='submit' className='btn btn-block'>\par
+          submit\par
+        </button>\par
+      </form>\par
+    </div>\par
+  );\par
+\};\par
+export default OtherInputs;\par
+```\par
+\par
+#### FormData API\par
+\par
+```js\par
+import Starter from './tutorial/06-forms/starter/05-form-data.jsx';\par
+```\par
+\par
+[JS Nuggets - FormData API](https://youtu.be/5-x4OUM-SP8)\par
+\par
+- a great solution when you have bunch of inputs\par
+- inputs must have name attribute\par
+\par
+The FormData interface provides a way to construct a set of key/value pairs representing form fields and their values, which can be sent using the fetch() or XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data".\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const UncontrolledInputs = () => \{\par
+  const [value, setValue] = useState(0);\par
+\par
+  const handleSubmit = (e) => \{\par
+    e.preventDefault();\par
+\par
+    const formData = new FormData(e.currentTarget);\par
+    // const name = formData.get('name');\par
+    // console.log(name);\par
+    // console.log([...formData.entries()]);\par
+    const newUser = Object.fromEntries(formData);\par
+    // do something (post request, add to list, etc)\par
+    console.log(newUser);\par
+    // Gotcha - re-render won't clear out the values\par
+    setValue(value + 1);\par
+    // reset values\par
+    e.currentTarget.reset();\par
+  \};\par
+  return (\par
+    <div>\par
+      <form className='form' onSubmit=\{handleSubmit\}>\par
+        <h4>Form Data API</h4>\par
+        \{/* name */\}\par
+        <div className='form-row'>\par
+          <label htmlFor='name' className='form-label'>\par
+            name\par
+          </label>\par
+          <input type='text' className='form-input' id='name' name='name' />\par
+        </div>\par
+        \{/* email */\}\par
+        <div className='form-row'>\par
+          <label htmlFor='email' className='form-label'>\par
+            Email\par
+          </label>\par
+          <input type='email' className='form-input' id='email' name='email' />\par
+        </div>\par
+        \{/* password */\}\par
+        <div className='form-row'>\par
+          <label htmlFor='password' className='form-label'>\par
+            Password\par
+          </label>\par
+          <input\par
+            type='password'\par
+            className='form-input'\par
+            id='password'\par
+            name='password'\par
+          />\par
+        </div>\par
+\par
+        <button type='submit' className='btn btn-block'>\par
+          submit\par
+        </button>\par
+      </form>\par
+    </div>\par
+  );\par
+\};\par
+export default UncontrolledInputs;\par
+```\par
+\par
+- e.currentTarget\par
+\par
+In React, e.currentTarget returns the DOM element that triggered the event.\par
+\par
+- Object From Entries\par
+\par
+The Object.fromEntries() static method transforms a list of key-value pairs into an object.\par
+\par
+```js\par
+const entries = new Map([\par
+  ['foo', 'bar'],\par
+  ['baz', 42],\par
+]);\par
+\par
+const obj = Object.fromEntries(entries);\par
+\par
+console.log(obj);\par
+// Expected output: Object \{ foo: "bar", baz: 42 \}\par
+```\par
+\par
+- reset()\par
+\par
+The reset() method is a built-in method in HTML that can be used to reset all form controls to their initial values. When this method is called on a form element, it will clear any user-entered data and reset the values of all form elements to their default values.\par
+\par
+#### useRef\par
+\par
+```js\par
+import Starter from './tutorial/07-useRef/starter/01-useRef-basics.jsx';\par
+```\par
+\par
+- DOES NOT TRIGGER RE-RENDER\par
+- preserves the value between renders\par
+- target DOM nodes/elements\par
+\par
+```js\par
+import \{ useEffect, useRef, useState \} from 'react';\par
+\par
+const UseRefBasics = () => \{\par
+  const [value, setValue] = useState(0);\par
+  const refContainer = useRef(null);\par
+\par
+  console.log(refContainer);\par
+  // \{current:null\}\par
+  // set value ourselves or DOM node\par
+\par
+  useEffect(() => \{\par
+    // console.log(refContainer.current);\par
+    refContainer.current.focus();\par
+  \});\par
+\par
+  const isMounted = useRef(false);\par
+\par
+  const handleSubmit = (e) => \{\par
+    e.preventDefault();\par
+    console.log(refContainer.current);\par
+    const name = refContainer.current.value;\par
+    console.log(name);\par
+  \};\par
+\par
+  useEffect(() => \{\par
+    if (!isMounted.current) \{\par
+      isMounted.current = true;\par
+      return;\par
+    \}\par
+    console.log('re-render');\par
+  \}, [value]);\par
+\par
+  return (\par
+    <div>\par
+      <form className='form' onSubmit=\{handleSubmit\}>\par
+        <div className='form-row'>\par
+          <label htmlFor='name' className='form-label'>\par
+            Name\par
+          </label>\par
+          <input\par
+            type='text'\par
+            id='name'\par
+            ref=\{refContainer\}\par
+            className='form-input'\par
+          />\par
+        </div>\par
+        <button type='submit' className='btn btn-block'>\par
+          submit\par
+        </button>\par
+      </form>\par
+      <h1>value : \{value\}</h1>\par
+      <button onClick=\{() => setValue(value + 1)\} className='btn'>\par
+        increase\par
+      </button>\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default UseRefBasics;\par
+```\par
+\par
+#### Custom Hooks\par
+\par
+```js\par
+import Starter from './tutorial/08-custom-hooks/starter/01-toggle.jsx';\par
+```\par
+\par
+- same rules as regular hooks\par
+- simplify component (less code)\par
+- re-use functionality\par
+\par
+useToggle.js\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const useToggle = (defaultValue) => \{\par
+  const [show, setShow] = useState(defaultValue);\par
+  const toggle = () => \{\par
+    setShow(!show);\par
+  \};\par
+  return \{ show, toggle \};\par
+\};\par
+\par
+export default useToggle;\par
+```\par
+\par
+- Challenge\par
+\par
+- in App.jsx import 02-fetch-data\par
+- take a look at the component\par
+- and try to setup custom fetch hook\par
+- hint :\par
+  hook should return isLoading,isError,user\par
+  and take url as parameter\par
+\par
+useFetchPerson.js\par
+\par
+```js\par
+import \{ useState, useEffect \} from 'react';\par
+\par
+const useFetchPerson = (url) => \{\par
+  const [isLoading, setIsLoading] = useState(true);\par
+  const [isError, setIsError] = useState(false);\par
+  const [user, setUser] = useState(null);\par
+\par
+  useEffect(() => \{\par
+    const fetchUser = async () => \{\par
+      try \{\par
+        const resp = await fetch(url);\par
+        // console.log(resp);\par
+        if (!resp.ok) \{\par
+          setIsError(true);\par
+          setIsLoading(false);\par
+          return;\par
+        \}\par
+\par
+        const user = await resp.json();\par
+        setUser(user);\par
+      \} catch (error) \{\par
+        setIsError(true);\par
+        // console.log(error);\par
+      \}\par
+      // hide loading\par
+      setIsLoading(false);\par
+    \};\par
+    fetchUser();\par
+  \}, []);\par
+\par
+  return \{ isLoading, isError, user \};\par
+\};\par
+\par
+export default useFetchPerson;\par
+```\par
+\par
+Generic Fetch\par
+\par
+useFetch.js\par
+\par
+```js\par
+import \{ useState, useEffect \} from 'react';\par
+\par
+const useFetch = (url) => \{\par
+  const [isLoading, setIsLoading] = useState(true);\par
+  const [isError, setIsError] = useState(false);\par
+  // change state value\par
+  const [data, setData] = useState(null);\par
+\par
+  useEffect(() => \{\par
+    // change name\par
+    const fetchData = async () => \{\par
+      try \{\par
+        const resp = await fetch(url);\par
+\par
+        if (!resp.ok) \{\par
+          setIsError(true);\par
+          setIsLoading(false);\par
+          return;\par
+        \}\par
+        // change to response\par
+        const response = await resp.json();\par
+        setData(response);\par
+      \} catch (error) \{\par
+        setIsError(true);\par
+        // console.log(error);\par
+      \}\par
+      // hide loading\par
+      setIsLoading(false);\par
+    \};\par
+    // invoke fetch data\par
+    fetchData();\par
+  \}, []);\par
+\par
+  return \{ isLoading, isError, data \};\par
+\};\par
+\par
+export default useFetch;\par
+```\par
+\par
+#### Context API\par
+\par
+```js\par
+import Starter from './tutorial/09-context-api/starter';\par
+```\par
+\par
+Challenge\par
+\par
+- create three components and nest them in such way :\par
+\par
+- Navbar.jsx\par
+\par
+  - NavLinks.jsx (nested in Navbar)\par
+    - UserContainer.jsx (nested in NavLinks)\par
+\par
+- import Navbar.jsx in App.jsx (remove container - CSS)\par
+- in Navbar.jsx setup\par
+  - user state value\par
+    - default value \{name:'something'\}\par
+  - logout function\par
+    - set user back to null\par
+- pass both of them down to UserContainer.jsx\par
+- display user and button\par
+- on button click set user back to null\par
+\par
+- extra challenge\par
+- if user null, in UserContainer display <p>please login</p>\par
+\par
+Navbar.jsx\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+import NavLinks from './NavLinks';\par
+\par
+const Navbar = () => \{\par
+  const [user, setUser] = useState(\{ name: 'bob' \});\par
+  const logout = () => \{\par
+    setUser(null);\par
+  \};\par
+  return (\par
+    <nav className='navbar'>\par
+      <h5>CONTEXT API</h5>\par
+      <NavLinks user=\{user\} logout=\{logout\} />\par
+    </nav>\par
+  );\par
+\};\par
+export default Navbar;\par
+```\par
+\par
+NavLinks.jsx\par
+\par
+```js\par
+import UserContainer from './UserContainer';\par
+\par
+const NavLinks = (\{ user, logout \}) => \{\par
+  return (\par
+    <div className='nav-container'>\par
+      <ul className='nav-links'>\par
+        <li>\par
+          <a href='#'>home</a>\par
+        </li>\par
+        <li>\par
+          <a href='#'>about</a>\par
+        </li>\par
+      </ul>\par
+      <UserContainer user=\{user\} logout=\{logout\} />\par
+    </div>\par
+  );\par
+\};\par
+export default NavLinks;\par
+```\par
+\par
+UserContainer.jsx\par
+\par
+```js\par
+const UserContainer = (\{ user, logout \}) => \{\par
+  return (\par
+    <div className='user-container'>\par
+      \{user ? (\par
+        <>\par
+          <p>Hello There, \{user.name.toUpperCase()\}</p>\par
+          <button type='button' className='btn' onClick=\{logout\}>\par
+            logout\par
+          </button>\par
+        </>\par
+      ) : (\par
+        <p>Please Login</p>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+export default UserContainer;\par
+```\par
+\par
+#### Setup Global Context\par
+\par
+final code in the repo under w-assets\par
+\par
+- create new VITE project\par
+\par
+```sh\par
+npm create vite@latest global-context -- --template react\par
+```\par
+\par
+- install and start the project\par
+\par
+```sh\par
+npm install && npm run dev\par
+```\par
+\par
+- in src create context.jsx\par
+- setup a global context - GlobalContext\par
+- setup a component (AppContext) with one state value\par
+- return GlobalContext.Provider from AppContext\par
+- wrap then entire application (main.jsx) - children prop "gotcha"\par
+- setup a custom hook\par
+- access in App.jsx\par
+- log result\par
+\par
+#### useReducer\par
+\par
+```js\par
+import Starter from './tutorial/10-useReducer/starter/01-useReducer.jsx';\par
+```\par
+\par
+- it's the complete file from 03-useState-array\par
+\par
+Challenge\par
+\par
+- let's add reset functionality\par
+- create function that set's people back to data array\par
+- create another button, similar to clear just for reset\par
+- use conditional rendering to toggle between the buttons,\par
+  depending on people value\par
+\par
+```js\par
+const resetList = () => \{\par
+  setPeople(data);\par
+\};\par
+\par
+// JSX\par
+\{\par
+  people.length < 1 ? (\par
+    <button className='btn' style=\{\{ marginTop: '2rem' \}\} onClick=\{resetList\}>\par
+      reset\par
+    </button>\par
+  ) : (\par
+    <button className='btn' style=\{\{ marginTop: '2rem' \}\} onClick=\{clearList\}>\par
+      clear\par
+    </button>\par
+  );\par
+\}\par
+```\par
+\par
+```js\par
+import React from 'react';\par
+import \{ data \} from '../../../data';\par
+const ReducerBasics = () => \{\par
+  const [people, setPeople] = React.useState(data);\par
+\par
+  const removeItem = (id) => \{\par
+    let newPeople = people.filter((person) => person.id !== id);\par
+    setPeople(newPeople);\par
+  \};\par
+  const resetList = () => \{\par
+    setPeople(data);\par
+  \};\par
+  return (\par
+    <div>\par
+      \{people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+            <button onClick=\{() => removeItem(id)\}>remove</button>\par
+          </div>\par
+        );\par
+      \})\}\par
+      \{people.length < 1 ? (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{resetList\}\par
+        >\par
+          reset\par
+        </button>\par
+      ) : (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{clearList\}\par
+        >\par
+          clear\par
+        </button>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default ReducerBasics;\par
+```\par
+\par
+#### Remove useState\par
+\par
+```js\par
+import \{ useState, useReducer \} from 'react';\par
+import \{ data \} from '../../../data';\par
+\par
+// default/initial state\par
+const defaultState = \{\par
+  people: data,\par
+\};\par
+// reducer function\par
+// whatever state is returned from the function is the new state\par
+\par
+const reducer = (state, action) => \{\par
+  return state;\par
+\};\par
+\par
+// dispatch(\{type:'SOME_ACTION'\}) an action\par
+// handle it in reducer, return new state\par
+\par
+const ReducerBasics = () => \{\par
+  const [state, dispatch] = useReducer(reducer, defaultState);\par
+\par
+  const removeItem = (id) => \{\par
+    // let newPeople = people.filter((person) => person.id !== id);\par
+    // setPeople(newPeople);\par
+  \};\par
+\par
+  const clearList = () => \{\par
+    // setPeople([]);\par
+  \};\par
+  const resetList = () => \{\par
+    // setPeople(data);\par
+  \};\par
+\par
+  return (\par
+    <div>\par
+      \{/* switch to state */\}\par
+      \{state.people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+            <button onClick=\{() => removeItem(id)\}>remove</button>\par
+          </div>\par
+        );\par
+      \})\}\par
+      \{/* switch to state */\}\par
+      \{state.people.length < 1 ? (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{resetList\}\par
+        >\par
+          reset\par
+        </button>\par
+      ) : (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{clearList\}\par
+        >\par
+          clear\par
+        </button>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default ReducerBasics;\par
+```\par
+\par
+#### First Dispatch\par
+\par
+```js\par
+import \{ useState, useReducer \} from 'react';\par
+import \{ data \} from '../../../data';\par
+\par
+const defaultState = \{\par
+  people: data,\par
+  isLoading: false,\par
+\};\par
+\par
+const reducer = (state, action) => \{\par
+  if (action.type === 'CLEAR_LIST') \{\par
+    return \{ ...state, people: [] \};\par
+  \}\par
+\};\par
+\par
+const ReducerBasics = () => \{\par
+  const [state, dispatch] = useReducer(reducer, defaultState);\par
+\par
+  const removeItem = (id) => \{\par
+    // let newPeople = people.filter((person) => person.id !== id);\par
+    // setPeople(newPeople);\par
+  \};\par
+\par
+  const clearList = () => \{\par
+    dispatch(\{ type: 'CLEAR_LIST' \});\par
+    // setPeople([]);\par
+  \};\par
+  const resetList = () => \{\par
+    // setPeople(data);\par
+  \};\par
+  console.log(state);\par
+  return (\par
+    <div>\par
+      \{state.people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+            <button onClick=\{() => removeItem(id)\}>remove</button>\par
+          </div>\par
+        );\par
+      \})\}\par
+      \{state.people.length < 1 ? (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{resetList\}\par
+        >\par
+          reset\par
+        </button>\par
+      ) : (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{clearList\}\par
+        >\par
+          clear\par
+        </button>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default ReducerBasics;\par
+```\par
+\par
+#### Actions and Default State\par
+\par
+```js\par
+import \{ useReducer \} from 'react';\par
+import \{ data \} from '../../../data';\par
+\par
+const CLEAR_LIST = 'CLEAR_LIST';\par
+const RESET_LIST = 'RESET_LIST';\par
+const REMOVE_ITEM = 'REMOVE_ITEM';\par
+\par
+const defaultState = \{\par
+  people: data,\par
+\};\par
+\par
+const reducer = (state, action) => \{\par
+  console.log(action);\par
+  if (action.type === CLEAR_LIST) \{\par
+    return \{ ...state, people: [] \};\par
+  \}\par
+\par
+  throw new Error(`No Matching "$\{action.type\}" - action type`);\par
+\};\par
+\par
+const ReducerBasics = () => \{\par
+  const [state, dispatch] = useReducer(reducer, defaultState);\par
+\par
+  const removeItem = (id) => \{\};\par
+\par
+  const clearList = () => \{\par
+    dispatch(\{ type: CLEAR_LIST \});\par
+  \};\par
+\par
+  const resetList = () => \{\};\par
+  return (\par
+    <div>\par
+      \{/* switch to state */\}\par
+      \{state.people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+            <button onClick=\{() => removeItem(id)\}>remove</button>\par
+          </div>\par
+        );\par
+      \})\}\par
+      \{/* switch to state */\}\par
+\par
+      \{state.people.length < 1 ? (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{resetList\}\par
+        >\par
+          reset\par
+        </button>\par
+      ) : (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{clearList\}\par
+        >\par
+          clear\par
+        </button>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default ReducerBasics;\par
+```\par
+\par
+#### Reset List Challenge\par
+\par
+- setup a dispatch and handle action in the reducer\par
+\par
+```js\par
+import \{ useReducer \} from 'react';\par
+import \{ data \} from '../../../data';\par
+\par
+const CLEAR_LIST = 'CLEAR_LIST';\par
+const RESET_LIST = 'RESET_LIST';\par
+const REMOVE_ITEM = 'REMOVE_ITEM';\par
+\par
+const defaultState = \{\par
+  people: data,\par
+\};\par
+\par
+const reducer = (state, action) => \{\par
+  console.log(action);\par
+  if (action.type === CLEAR_LIST) \{\par
+    return \{ ...state, people: [] \};\par
+  \}\par
+  if (action.type === RESET_LIST) \{\par
+    return \{ ...state, people: data \};\par
+  \}\par
+  throw new Error(`No Matching "$\{action.type\}" - action type`);\par
+\};\par
+\par
+const ReducerBasics = () => \{\par
+  const [state, dispatch] = useReducer(reducer, defaultState);\par
+\par
+  const removeItem = (id) => \{\};\par
+\par
+  const clearList = () => \{\par
+    dispatch(\{ type: CLEAR_LIST \});\par
+  \};\par
+  const resetList = () => \{\par
+    dispatch(\{ type: RESET_LIST \});\par
+  \};\par
+\par
+  return (\par
+    <div>\par
+      \{/* switch to state */\}\par
+      \{state.people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+            <button onClick=\{() => removeItem(id)\}>remove</button>\par
+          </div>\par
+        );\par
+      \})\}\par
+      \{/* switch to state */\}\par
+\par
+      \{state.people.length < 1 ? (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{resetList\}\par
+        >\par
+          reset\par
+        </button>\par
+      ) : (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{clearList\}\par
+        >\par
+          clear\par
+        </button>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default ReducerBasics;\par
+```\par
+\par
+#### Remove Person Challenge\par
+\par
+- remove single person\par
+- hint extra property in the object\par
+\par
+```js\par
+import \{ useReducer \} from 'react';\par
+import \{ data \} from '../../../data';\par
+\par
+const CLEAR_LIST = 'CLEAR_LIST';\par
+const RESET_LIST = 'RESET_LIST';\par
+const REMOVE_ITEM = 'REMOVE_ITEM';\par
+\par
+const defaultState = \{\par
+  people: data,\par
+\};\par
+\par
+const reducer = (state, action) => \{\par
+  console.log(action);\par
+  if (action.type === CLEAR_LIST) \{\par
+    return \{ ...state, people: [] \};\par
+  \}\par
+  if (action.type === RESET_LIST) \{\par
+    return \{ ...state, people: data \};\par
+  \}\par
+  if (action.type === REMOVE_ITEM) \{\par
+    let newPeople = state.people.filter(\par
+      (person) => person.id !== action.payload.id\par
+    );\par
+\par
+    return \{ ...state, people: newPeople \};\par
+  \}\par
+\par
+  return state;\par
+\};\par
+\par
+const ReducerBasics = () => \{\par
+  const [state, dispatch] = useReducer(reducer, defaultState);\par
+\par
+  const removeItem = (id) => \{\par
+    dispatch(\{ type: REMOVE_ITEM, payload: \{ id \} \});\par
+  \};\par
+\par
+  const clearList = () => \{\par
+    dispatch(\{ type: CLEAR_LIST \});\par
+  \};\par
+  const resetList = () => \{\par
+    dispatch(\{ type: RESET_LIST \});\par
+  \};\par
+\par
+  return (\par
+    <div>\par
+      \{/* switch to state */\}\par
+      \{state.people.map((person) => \{\par
+        const \{ id, name \} = person;\par
+        return (\par
+          <div key=\{id\} className='item'>\par
+            <h4>\{name\}</h4>\par
+            <button onClick=\{() => removeItem(id)\}>remove</button>\par
+          </div>\par
+        );\par
+      \})\}\par
+      \{/* switch to state */\}\par
+\par
+      \{state.people.length < 1 ? (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{resetList\}\par
+        >\par
+          reset\par
+        </button>\par
+      ) : (\par
+        <button\par
+          className='btn'\par
+          style=\{\{ marginTop: '2rem' \}\}\par
+          onClick=\{clearList\}\par
+        >\par
+          clear\par
+        </button>\par
+      )\}\par
+    </div>\par
+  );\par
+\};\par
+\par
+export default ReducerBasics;\par
+```\par
+\par
+#### Import / Export\par
+\par
+- create new file - actions.js\par
+\par
+  - copy/paste all actions\par
+  - export/import actions\par
+\par
+- create new file - reducer.js\par
+\par
+  - copy/paste reducer\par
+  - import actions\par
+  - import data\par
+  - export/import reducer\par
+\par
+#### Performance\par
+\par
+#### Lower State / Push The State Down\par
+\par
+```js\par
+import Starter from './tutorial/11-performance/starter/01-lower-state';\par
+```\par
+\par
+When Component Re-Renders :\par
+\par
+- When the component's state or props change, React will re-render the component to reflect these changes.\par
+\par
+- When the parent element re-renders, even if the component's state or props have not changed.\par
+\par
+- lower state\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+const Counter = () => \{\par
+  const [count, setCount] = useState(0);\par
+  return (\par
+    <button\par
+      className='btn'\par
+      onClick=\{() => setCount(count + 1)\}\par
+      style=\{\{ marginBottom: '1rem' \}\}\par
+    >\par
+      count \{count\}\par
+    </button>\par
+  );\par
+\};\par
+export default Counter;\par
+```\par
+\par
+#### Lower State Challenge\par
+\par
+```js\par
+import Starter from './tutorial/11-performance/starter/02-lower-state-challenge';\par
+```\par
+\par
+- fix the re-rendering\par
+- hint addPerson fix\par
+\par
+```js\par
+import \{ useState \} from 'react';\par
+\par
+const Form = (\{ addPerson \}) => \{\par
+  const [name, setName] = useState('');\par
+  const handleSubmit = (e) => \{\par
+    e.preventDefault();\par
+    if (!name) \{\par
+      alert('Please Provide Name Value');\par
+      return;\par
+    \}\par
+    addPerson(name);\par
+    setName('');\par
+  \};\par
+  return (\par
+    <form className='form' onSubmit=\{handleSubmit\}>\par
+      <div className='form-row'>\par
+        <label htmlFor='name' className='form-label'>\par
+          name\par
+        </label>\par
+        <input\par
+          type='text'\par
+          name='name'\par
+          id='name'\par
+          className='form-input'\par
+          value=\{name\}\par
+          onChange=\{(e) => setName(e.target.value)\}\par
+        />\par
+      </div>\par
+      <button className='btn btn-block' type='submit'>\par
+        submit\par
+      </button>\par
+    </form>\par
+  );\par
+\};\par
+export default Form;\par
+```\par
+\par
+#### React.memo()\par
+\par
+```js\par
+import Starter from './tutorial/11-performance/starter/03-hooks';\par
+```\par
+\par
+React.memo is a higher-order component (HOC) in React that allows you to memoize a component. This means that if the input props to the component have not changed, the memoized component will return the same result from the previous render, instead of re-rendering. This can help improve performance by avoiding unnecessary render cycles.\par
+\par
+The React.memo function takes a functional component as its argument and returns a new component that has the same behavior, but with the added optimization of checking if the props have changed. If the props have not changed, the memoized component will return the cached result from the previous render.\par
+\par
+Here's an example of using React.memo\par
+\par
+```js\par
+const MyComponent = React.memo(function MyComponent(props) \{\par
+  /* render logic */\par
+\});\par
+```\par
+\par
+React.memo(Component) - returns memoized component\par
+\par
+#### Function "Gotcha"\par
+\par
+- setup remove person function\par
+\par
+```js\par
+const removePerson = (id) => \{\par
+  const newPeople = people.filter((person) => person.id !== id);\par
+  setPeople(newPeople);\par
+\};\par
+```\par
+\par
+- pass it down to List and Person\par
+\par
+#### UseCallback\par
+\par
+The useCallback hook is a hook in React that allows you to memoize a function. It takes two arguments: the first is the function you want to memoize, and the second is an array of dependencies. The hook will return a memoized version of the function that only changes if one of the values in the dependency array changes.\par
+\par
+By memoizing the function, you can avoid unnecessary re-renders and improve the performance of your React application. The function will only be re-created if one of its dependencies changes, otherwise the same instance of the function will be returned. This can be useful in situations where you have an expensive function that you only want to recompute when its dependencies change.\par
+\par
+Here is an example of how you might use useCallback:\par
+\par
+```js\par
+import React, \{ useCallback, useState \} from 'react';\par
+\par
+function MyComponent() \{\par
+  const [data, setData] = useState([]);\par
+  const handleClick = useCallback(() => \{\par
+    console.log(data);\par
+  \}, [data]);\par
+\par
+  return (\par
+    <div>\par
+      <button onClick=\{handleClick\}>Click me</button>\par
+    </div>\par
+  );\par
+\}\par
+```\par
+\par
+In this example, the handleClick function is memoized using useCallback and the data prop is passed as a dependency. This means that the handleClick function will only be re-created if the data prop changes.\par
+\par
+#### useCallback - Common Use Case\par
+\par
+```js\par
+import Final from './tutorial/02-useEffect/final/04-fetch-data';\par
+```\par
+\par
+```js\par
+import \{ useState, useEffect, useCallback \} from 'react';\par
+const url = '{{\field{\*\fldinst{HYPERLINK https://api.github.com/users }}{\fldrslt{https://api.github.com/users\ul0\cf0}}}}\f0\fs22 ';\par
+\par
+const FetchData = () => \{\par
+  const [users, setUsers] = useState([]);\par
+  const fetchData = useCallback(async () => \{\par
+    try \{\par
+      const response = await fetch(url);\par
+      const users = await response.json();\par
+      setUsers(users);\par
+    \} catch (error) \{\par
+      console.log(error);\par
+    \}\par
+  \}, []);\par
+\par
+  useEffect(() => \{\par
+    fetchData();\par
+  \}, [fetchData]);\par
+  // rest of the logic\par
+\};\par
+```\par
+\par
+#### useMemo\par
+\par
+The useMemo hook is a hook in React that allows you to memoize a value. It takes two arguments: the first is a function that returns the value you want to memoize, and the second is an array of dependencies. The hook will return the memoized value that will only change if one of the values in the dependency array changes.\par
+\par
+By memoizing a value, you can avoid unnecessary calculations and improve the performance of your React application. The value will only be recalculated if one of its dependencies changes, otherwise the same instance of the value will be returned. This can be useful in situations where you have an expensive calculation that you only want to recompute when its dependencies change.\par
+\par
+Here is an example of how you might use useMemo:\par
+\par
+```js\par
+import React, \{ useMemo \} from 'react';\par
+\par
+function MyComponent(\{ data \}) \{\par
+  const processedData = useMemo(() => \{\par
+    return data.map((item) => item.toUpperCase());\par
+  \}, [data]);\par
+\par
+  return (\par
+    <div>\par
+      \{processedData.map((item) => (\par
+        <div key=\{item\}>\{item\}</div>\par
+      ))\}\par
+    </div>\par
+  );\par
+\}\par
+```\par
+\par
+In this example, the processedData value is memoized using useMemo and the data prop is passed as a dependency. This means that the processedData value will only be recalculated if the data prop changes.\par
+\par
+- create slowFunction file\par
+- setup a function\par
+- import in index.js and set it equal to a value\par
+\par
+```js\par
+const slowFunction = () => \{\par
+  let value = 0;\par
+  for (let i = 0; i <= 1000000000; i++) \{\par
+    value += i;\par
+  \}\par
+  return value;\par
+\};\par
+\par
+export default slowFunction;\par
+```\par
+\par
+#### useTransition\par
+\par
+[JS Nuggets - Array.from](https://www.youtube.com/watch?v=zg1Bv4xubwo&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=11&t=666s)\par
+\par
+```js\par
+import Starter from './tutorial/11-performance/starter/04-react-18';\par
+```\par
+\par
+- useTransition is a React Hook that lets you update the state without blocking the UI.\par
+\par
+```js\par
+import \{ useState, useTransition \} from 'react';\par
+const LatestReact = () => \{\par
+  const [text, setText] = useState('');\par
+  const [items, setItems] = useState([]);\par
+  const [isPending, startTransition] = useTransition();\par
+\par
+  const handleChange = (e) => \{\par
+    setText(e.target.value);\par
+\par
+    startTransition(() => \{\par
+      const newItems = Array.from(\{ length: 5000 \}, (_, index) => \{\par
+        return (\par
+          <div key=\{index\}>\par
+            <img src='/vite.svg' alt='' />\par
+          </div>\par
+        );\par
+      \});\par
+      setItems(newItems);\par
+    \});\par
+  \};\par
+  return (\par
+    <section>\par
+      <form className='form'>\par
+        <input\par
+          type='text'\par
+          className='form-input'\par
+          value=\{text\}\par
+          onChange=\{handleChange\}\par
+        />\par
+      </form>\par
+      <h4>Items Below</h4>\par
+      \{isPending ? (\par
+        'Loading...'\par
+      ) : (\par
+        <div\par
+          style=\{\{\par
+            display: 'grid',\par
+            gridTemplateColumns: '1fr 1fr 1fr',\par
+            marginTop: '2rem',\par
+          \}\}\par
+        >\par
+          \{items\}\par
+        </div>\par
+      )\}\par
+    </section>\par
+  );\par
+\};\par
+export default LatestReact;\par
+```\par
+\par
+#### Suspense API\par
+\par
+The Suspense API is a feature in React that allows you to manage the loading state of your components. It provides a way to "suspend" rendering of a component until some data has been fetched, and display a fallback UI in the meantime. This makes it easier to handle asynchronous data loading and provide a smooth user experience in your React application.\par
+\par
+Here is an example of how you might use the Suspense API:\par
+\par
+```js\par
+import React, \{ lazy, Suspense \} from 'react';\par
+\par
+const DataComponent = lazy(() => import('./DataComponent'));\par
+\par
+function MyComponent() \{\par
+  return (\par
+    <Suspense fallback=\{<div>Loading...</div>\}>\par
+      <DataComponent />\par
+    </Suspense>\par
+  );\par
+\}\par
+```\par
+\par
+```js\par
+import \{ useState, useTransition, lazy, Suspense \} from 'react';\par
+const SlowComponent = lazy(() => import('./SlowComponent'));\par
+const LatestReact = () => \{\par
+  const [text, setText] = useState('');\par
+  const [items, setItems] = useState([]);\par
+  const [isPending, startTransition] = useTransition();\par
+  const [show, setShow] = useState(false);\par
+  const handleChange = (e) => \{\par
+    setText(e.target.value);\par
+\par
+    startTransition(() => \{\par
+      const newItems = Array.from(\{ length: 5000 \}, (_, index) => \{\par
+        return (\par
+          <div key=\{index\}>\par
+            <img src='/vite.svg' alt='' />\par
+          </div>\par
+        );\par
+      \});\par
+      setItems(newItems);\par
+    \});\par
+  \};\par
+  return (\par
+    <section>\par
+      <form className='form'>\par
+        <input\par
+          type='text'\par
+          className='form-input'\par
+          value=\{text\}\par
+          onChange=\{handleChange\}\par
+        />\par
+      </form>\par
+      <h4>Items Below</h4>\par
+      \{isPending ? (\par
+        'Loading...'\par
+      ) : (\par
+        <div\par
+          style=\{\{\par
+            display: 'grid',\par
+            gridTemplateColumns: '1fr 1fr 1fr',\par
+            marginTop: '2rem',\par
+          \}\}\par
+        >\par
+          \{items\}\par
+        </div>\par
+      )\}\par
+      <button onClick=\{() => setShow(!show)\} className='btn'>\par
+        toggle\par
+      </button>\par
+      \{show && (\par
+        <Suspense fallback=\{<h4>Loading...</h4>\}>\par
+          <SlowComponent />\par
+        </Suspense>\par
+      )\}\par
+    </section>\par
+  );\par
+\};\par
+export default LatestReact;\par
+```\par
+\par
+- typical setup (wrap entire return in Suspense)\par
+\par
+```js\par
+return (\par
+  <Suspense fallback=\{<h4>Loading...</h4>\}>\par
+    \{/* rest of the logic */\}\par
+    <section>\{show && <SlowComponent />\}</section>\par
+  </Suspense>\par
+);\par
+```\lang9\par
+}
+ 
